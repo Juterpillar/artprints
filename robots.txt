@@ -1,0 +1,6 @@
+User-Agent: *
+Disallow: /private
+Disallow: /cgi-bin
+Disallow: /logs
+Disallow: /images
+

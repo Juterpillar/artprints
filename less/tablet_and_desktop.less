@@ -1,0 +1,621 @@
+/* -----------------------------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------- tablet --------------------------------------------------------*/
+/* -----------------------------------------------------------------------------------------------------------------------*/
+
+ @media
+    only all and (min-width: 569px) { 
+
+    /* --------------------- common styles ------------------------*/
+
+
+    header, footer, article, section, nav, menu, hgroup {
+        display: block;
+    }
+
+    @softest_grey: #d9d8d8;
+    @barely_grey: #f0f0f0;
+    @soft_blue: #465b8c;
+
+    /*------------------------- containers -------------------------*/
+
+
+    h1 {
+        float: left;
+        width: 260px;
+    }
+
+    #container {
+        padding: 0 10px;
+        position: relative;
+    }
+
+    #content {
+        padding-bottom: 150px;
+    }
+
+    .mobile {
+        display: none;
+    }
+
+    #content h2, #content h3 {
+        text-align: center;
+    }
+
+    /*------------------------- header -------------------------*/
+
+    #pre_nav li {
+        float: right;
+        font-size: .8em;
+        a {
+            padding: 2px 10px;
+        }
+    }
+
+    #main_nav a {
+           font-size: .8em;
+     }
+
+    /*------------------------- footer -------------------------*/
+
+    footer {
+    //    position: absolute;
+      //  bottom: 0;
+        width: 98%;
+        padding-bottom: 7px;
+        ul {
+            margin-bottom: 10px;
+        }
+    }
+
+    footer p {
+        font-size: 0.8em;
+        line-height: 1.2em;
+    }
+
+    /*------------------------- home wrapper  -------------------------*/
+
+
+    .icon_nav {
+        text-align: center;
+        overflow: hidden;
+        figure {
+            display: inline-block;
+            margin: 0px 0px;
+        }
+    }    
+
+
+    #home_text {
+        clear:both;
+        text-align: center;
+        border-top: 1px @softest_grey solid;
+        padding-bottom: 5%;
+    }
+
+    #home_text p, #product_text p {
+        font-family: ColaborateThinRegular;
+        max-width: 345px;
+        display: inline-block;
+        text-align: justify;
+        margin: 5% 20px 0;
+        vertical-align: text-top;
+        line-height: 2em;
+    }
+
+    footer {
+        border-top: 1px @softest_grey solid;
+    }
+
+    /* --------------------- login/register -------------------------*/
+
+    #login, #register {
+        .button, input[type="submit"] {
+            width: 30%;
+        }
+    }
+
+    .end {
+        margin-bottom: 200px;
+    }
+
+    /* ----------------------- account ------------------------------*/
+
+    #account, #dashboard {
+        h6 {
+            margin: 0;
+            text-align: right;
+        }
+    }
+
+    #account #content form {
+        clear: none;
+    }
+
+    /* --------------------- catalogue ------------------------------*/
+
+    aside {
+        background-color: @barely_grey;
+        background-image: url('../images/handmadepaper.jpg');
+        width: 215px;
+        float: right;
+        margin: 0;
+        text-align: right;
+        h3 {
+            padding-right: 5%;
+            margin-bottom: 1%;
+        }
+        h5 {
+            padding-right: 15%;
+        }
+        #orientation_options {
+            padding-bottom: 100px;
+        }
+
+    }
+
+    #catalogue #content, #banner {
+        h2 {
+            margin: 0;
+            padding: 3% 0 20px;
+        }
+        .icon_nav {
+            a {
+                margin: 1% 2%;
+                max-width: 100%;
+            }
+            figure {
+                width: 200px;
+            }
+        }
+    }
+
+    /* --------------------- product ------------------------------*/
+
+    #product #content {
+        min-height: 370px;
+        padding-bottom: 0;
+        h2 {
+            padding: 2% 0 1%;
+        }
+        h2, h4, h6 {
+            text-align: left;
+            margin: 0 0 0 3%;
+        }
+        .icon_nav {
+            margin: 2%;
+            h6 {
+                margin: 1%;
+                text-align: center;
+                a {
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    #product_text p {
+        max-width: 200px;
+        line-height: 1.8em;
+        margin-top: 2%;
+        padding-bottom: 5%;
+    }
+
+    #product aside {
+        h2, h4 {
+            text-align: right;
+            margin: 10px 0 0px;
+            padding: 0 15px;
+        }
+        h2 {
+            margin-bottom: 40px;
+        }
+        button, input[type="submit"] {
+            width: 50%;
+            margin: 0px 15px 60px;
+            float: right;
+        }
+        span {
+            font-size: .6em;
+        }
+        .button {
+            width: 50%;
+            margin: 3px 15px;
+            float: right;
+        }
+        #update_format {
+            margin: 10px 15px 25px 0;
+        }
+        select {
+            text-align: center;
+            padding: 3% 0 1%;
+        }
+        #format_heading {
+            margin-top: 30px;
+            clear: both;
+        }
+        #quantity_select {
+            width: 57%;
+            float: right;
+            margin-right:15px;
+            margin-bottom: 20px;
+            select {
+                width: 135%;
+            }
+        }
+        h6 {
+            clear: both;
+            text-align: right;
+            margin-right: 15px;
+            line-height: 1em;
+            a {
+                border-bottom: 1px solid @soft_blue;
+            }
+        }
+        .format {
+            margin: 2px 15px;
+        }
+    }
+
+    #artist_suggestions, #subject_suggestions {
+        .icon_nav {
+            margin: 0;
+        }
+        figure {
+            margin: 10px 3% 50px;
+        }
+    }
+
+
+    /* --------------------- contact ------------------------------*/
+
+    #contact {
+        #content {
+            padding-bottom: 50px;
+        }
+        aside h3 {
+            cursor: default;
+        }
+        aside p {
+            padding-right: 10px;
+            font-size: .9em;
+            text-align: right;
+        }
+        #map_options {
+            margin-right: 10px;
+            float: right;
+            margin-top: 5px;
+        }
+        textarea {
+            width: 96%;
+            font-size: 1.2em;
+            margin-right: 6px;
+        }
+
+    }
+
+    /*-------------------------- shipping ------------------------*/
+
+
+    #shipping figure, #faq figure {
+        margin: 2%;
+        width: 180px;
+        img {
+            width: 180px;
+            height: 180px;
+        }
+        p {
+        width: 180px;
+        }
+    }
+
+
+    /*-------------------------- checkout ------------------------*/
+
+    #checkout, #account, #dashboard {
+        textarea {
+            width: 50%;
+            margin-right: 5px;
+        }
+    }
+
+    .checkout_item p:last-child {
+        max-width: 60%;
+    }
+
+
+    /*-------------------------- dashboard ------------------------*/
+
+    #dashboard #content, .width, #orders #content, .admin_content {
+        width: 67%;
+    }
+
+
+    /*-------------------------- order ------------------------*/
+
+    .last {
+        margin-bottom: 100px;
+        border-bottom: 1px solid @softest_grey;
+    }
+
+    /*-------------------------- policy ------------------------*/
+
+    .fineprint {
+        text-align: center;
+        width: 90%;
+        margin: 0 auto;
+        ul {
+            max-width: 345px;
+            display: inline-block;
+            margin: 0% 20px 20px;
+            vertical-align: text-top;
+        }
+    }
+
+    /*-------------------------- policy ------------------------*/
+
+    #sitemap {
+        .fineprint {
+            width: 50%;
+            margin: 10px auto 20px;
+            padding-top: 20px;
+            background-color: @barely_grey;
+            background-image: url('../images/handmadepaper.jpg');
+            ul {
+                width: 100px;
+            }
+        }
+    }
+
+}
+
+
+/* -----------------------------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------- desktop --------------------------------------------------------*/
+/* -----------------------------------------------------------------------------------------------------------------------*/
+
+ @media
+    only all and (min-width: 960px) { 
+    
+    @softest_grey: #d9d8d8;
+
+    /*------------------------- containers -------------------------*/
+
+
+    body {
+        background: url(../images/background.jpg);
+        background-repeat: no-repeat;
+        background-position: center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        overflow-y: scroll ;
+    }
+
+    #container {
+        width: 960px;
+        margin: 0 auto;
+        background-color: white;
+    }
+
+
+    /*------------------------- header -------------------------*/
+
+    h1 {
+        background-image: url('../images/logo_desktop.jpg');
+        height: 72px;
+        width: 377px;
+    }
+
+    #main_nav ul {
+        padding: 1%;
+        a {
+           font-size: 1em;
+           padding: 15px;
+        }
+    }
+
+    #content .icon_nav, #subject_suggestions .icon_nav, #artist_suggestions .icon_nav {
+        a {
+            margin: 0 5px;
+        }
+    }
+
+    /*------------------------- home -------------------------*/
+
+    .banner img {
+        height: 290px;
+    }
+
+    /*------------------------- product -------------------------*/
+
+    aside .select {
+        border-top: 1px @softest_grey solid;
+        border-left: 1px @softest_grey solid;
+    }
+
+    #product_text {
+        max-width: 745px;
+        padding-left: 20px;
+    }
+
+    #product_text p {
+        max-width: 300px;
+    }
+
+    #product #content .icon_nav {
+        margin: 0;
+    }
+
+
+    /*------------------------ shipping -------------------------*/
+
+    #shipping figure, #faq figure {
+        margin: 2%;
+        width: 240px;
+        img {
+            width: 240px;
+            height: 240px;
+        }
+        p {
+        width: 240px;
+        }
+    }
+
+
+    /*----------------login register checkout forms -----------*/
+
+    #login #content form, #register #content form, #contact #content form, #checkout #content form, #account #content form {
+        padding-top: 20px;
+        width: 520px;
+        label {
+            width: 30%;
+            padding-left: 10px;
+        }
+        input {
+            width: 60%;
+        }
+        textarea {
+            width: 60%;
+            float: right;
+            margin-right: 27px;
+            margin-top: 5px;
+        }
+        input[type="submit"] {
+            width:20%;
+        }
+        .error {
+            font-size: .8em;
+            padding-right: 25px;
+        }
+    }
+
+    #login #content form {
+        width: 350px;
+        label {
+            width: 27%;
+        }
+        input {
+            width: 63%;
+        }
+    }
+
+    #register select {
+        width: 62%;
+        height: 30px;
+    }
+
+    #checkout #content form textarea {
+        margin-right: 5px;
+    }
+
+
+    /*-----------------------logout ------------------------*/
+
+    #logout #content {
+        .push_page {
+            margin-bottom: 200px;
+        }
+    }
+
+    /*----------------------- account ------------------------*/
+
+    #account #content, #checkout {
+        input[type="submit"] {
+            margin-right: 26px;
+        }
+        .narrow {
+            width: 300px;
+            select {
+                float: right;
+            }
+            input[type=submit] {
+                width: 40%;
+                margin: 10px 5px;
+            }
+        }
+        #account_form {
+            select {
+                width: 322px !important;
+            }
+        }
+
+        form textarea {
+            margin-right: 5px;
+        }
+        #billing {
+            margin: 10px 10px 8px;
+        }
+        #password_form {
+            label {
+                width: 32%;
+            }
+            input[type=password] {
+                width: 60%;
+            }
+        }
+    }
+
+
+    /*-------------------------- dashboard ------------------------*/
+
+    #dashboard, #orders {
+        #content {
+            width: 720px;
+        }
+    }
+
+    .width {
+        width: 735px;
+    }
+
+
+    /*-------------------------- royalty ------------------------*/
+
+    #royalty {
+        table {
+            width: 100%;
+        }
+    }
+
+    /*-------------------------- banners ------------------------*/
+
+    .banners {
+        width: 98%;
+        input[type=submit] {
+            width: 100px;
+            margin-right: 0px;
+            float: right;
+        }
+        #alt {
+            width: 78%;
+            margin-right: 0;
+        }
+        label, input, select {
+            float: left;
+            clear: none;
+        }
+        #link_label {
+            width: 50px;
+            margin-left: 5px;
+        }
+        #link {
+            width: 325px;
+            margin-right: 0;
+        }
+    }
+
+    .new_banner {
+        width: 60%;
+        input {
+            width: 64%;
+            margin-right: 0;
+        }
+        input[type=submit] {
+            width: 100px;
+            margin-right: 0px;
+            float: right;
+        }
+    }
+}
+

@@ -1,0 +1,43 @@
+A:link {
+	COLOR: #000000; TEXT-DECORATION: none
+	}
+A:visited {
+	COLOR: #000000; TEXT-DECORATION: none
+	}
+A:active {
+	COLOR: #000000; TEXT-DECORATION: none
+	}
+A:hover {
+	COLOR: #33ccff; TEXT-DECORATION: none
+	}
+
+/* sets background */
+BODY.client {
+	background-color:#ffffff;
+	}
+
+/* text colour and size*/
+.medium {
+	color:#000000;
+	font-family:helvetica,arial,sans-serif;
+	font-size:10pt;
+	font-style:normal;
+	font-weight:400;
+	line-height:120%;
+	}
+.small {
+	color:#000000;
+	font-family:arial,helvetica,sans-serif;
+	font-size:8pt;
+	font-style:normal;
+	font-weight:400;
+	line-height:120%;
+	}
+.head {
+	font-family:arial,helvetica,sans-serif;
+	font-style:normal;
+	font-weight:800;
+	font-size:12pt;
+	color:#000000;
+	line-height:100%;
+	}

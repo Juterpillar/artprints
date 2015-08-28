@@ -1,0 +1,264 @@
+/* --------------------- common styles ------------------------*/
+
+@softest_grey: #d9d8d8;
+
+header, footer, article, section, nav, menu, hgroup {
+    display: block;
+}
+
+/*------------------------- containers -------------------------*/
+
+
+body {
+    background: url(../images/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow-y: scroll ;
+}
+
+#container {
+    width: 960px;
+    margin: 0 auto;
+    background-color: white;
+}
+
+
+/*------------------------- header -------------------------*/
+
+h1 {
+    background-image: url('../images/logo_desktop.jpg');
+    height: 72px;
+    width: 377px;
+}
+
+#main_nav ul {
+    padding: 1%;
+    a {
+       font-size: 1em;
+       padding: 15px;
+    }
+}
+
+#content .icon_nav, #subject_suggestions .icon_nav, #artist_suggestions .icon_nav {
+    a {
+        margin: 0 5px;
+    }
+}
+
+/*------------------------- home -------------------------*/
+
+.banner img {
+    height: 290px;
+}
+
+/*------------------------- product -------------------------*/
+
+aside .select {
+    border-top: 1px @softest_grey solid;
+    border-left: 1px @softest_grey solid;
+}
+
+#product_text {
+    max-width: 745px;
+    padding-left: 20px;
+}
+
+#product_text p {
+    max-width: 300px;
+}
+
+#product #content .icon_nav {
+    margin: 0;
+}
+
+
+/*------------------------ shipping -------------------------*/
+
+#shipping figure, #faq figure {
+    margin: 2%;
+    width: 240px;
+    img {
+        width: 240px;
+        height: 240px;
+    }
+    p {
+    width: 240px;
+    }
+}
+
+
+/*----------------login register checkout forms -----------*/
+
+#login #content form, #register #content form, #contact #content form, #checkout #content form, #account #content form {
+    padding-top: 20px;
+    width: 520px;
+    label {
+        width: 30%;
+        padding-left: 10px;
+    }
+    input {
+        width: 60%;
+    }
+    textarea {
+        width: 60%;
+        float: right;
+        margin-right: 27px;
+        margin-top: 5px;
+    }
+    input[type="submit"] {
+        width:20%;
+    }
+    .error {
+        font-size: .8em;
+        padding-right: 25px;
+    }
+}
+
+#login #content form {
+    width: 350px;
+    label {
+        width: 27%;
+    }
+    input {
+        width: 63%;
+    }
+}
+
+#register select {
+    width: 62%;
+    height: 30px;
+}
+
+#checkout #content form textarea {
+    margin-right: 5px;
+}
+
+
+/*-----------------------logout ------------------------*/
+
+#logout #content {
+    .push_page {
+        margin-bottom: 200px;
+    }
+}
+
+/*----------------------- account ------------------------*/
+
+#account #content, #checkout {
+    input[type="submit"] {
+        margin-right: 26px;
+    }
+    .narrow {
+        width: 300px;
+        select {
+            float: right;
+        }
+        input[type=submit] {
+            width: 40%;
+            margin: 10px 5px;
+        }
+    }
+    #account_form {
+        select {
+            width: 322px !important;
+        }
+    }
+
+    form textarea {
+        margin-right: 5px;
+    }
+    #billing {
+        margin: 10px 10px 8px;
+    }
+    #password_form {
+        label {
+            width: 32%;
+        }
+        input[type=password] {
+            width: 60%;
+        }
+    }
+}
+
+
+/*-------------------------- dashboard ------------------------*/
+
+#dashboard, #orders {
+    #content {
+        width: 720px;
+    }
+}
+
+.width {
+    width: 735px;
+}
+
+
+/*-------------------------- royalty ------------------------*/
+
+#royalty {
+    table {
+        width: 100%;
+    }
+}
+
+/*-------------------------- banners ------------------------*/
+
+.banners {
+    width: 98%;
+    input[type=submit] {
+        width: 100px;
+        margin-right: 0px;
+        float: right;
+    }
+    #alt {
+        width: 78%;
+        margin-right: 0;
+    }
+    label, input, select {
+        float: left;
+        clear: none;
+    }
+    #link_label {
+        width: 50px;
+        margin-left: 5px;
+    }
+    #link {
+        width: 325px;
+        margin-right: 0;
+    }
+}
+
+.new_banner {
+    width: 60%;
+    input {
+        width: 64%;
+        margin-right: 0;
+    }
+    input[type=submit] {
+        width: 100px;
+        margin-right: 0px;
+        float: right;
+    }
+}
+
+/* ------- special styles for mobile width <313px ------- 
+
+@media
+only all and (max-width: 319px) {
+   
+}
+
+
+ ------- images for retina devices ie iphone 4+ etc ------- 
+  
+@media
+only all and (min-device-pixel-ratio: 2),
+only all and (-webkit-min-device-pixel-ratio: 2) {    
+    
+}
+*/

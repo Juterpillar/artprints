@@ -1,0 +1,90 @@
+<html>
+<head>
+<link REL="stylesheet" TYPE="text/css" HREF="paystation.css">
+</head>
+<script language="Javascript">
+function verify(){
+	window.open('https://www.paymark.co.nz/dart/darthttp.dll?etsl&tn=verify&merchantid=[|merchant-id|]','verify','scrollbars=yes,width=400,height=400');
+}
+//-->
+</script>
+
+<body class="client" link="#ff9900" vlink="#ff9900" alink="#FFCC00">
+<table border=0 cellspacing=0 cellpadding=3>
+	<tr>
+		<td WIDTH="190" VALIGN="top">
+  			<img SRC="images/blank.gif" WIDTH="1" HEIGHT="15"><br>
+			<img SRC="images/blank.gif" WIDTH="15" HEIGHT="1"><img SRC="images/paystation-logo.jpg" WIDTH="221" HEIGHT="101"><br>
+
+			<img SRC="images/blank.gif" WIDTH="240" HEIGHT="1">
+	</td>
+	<td>
+<img SRC="images/blank.gif" WIDTH="1" HEIGHT="55"><br>
+<font class="head"><b>Paystation Online Payments<br>3-PARTY SAMPLE<br>[|merchant-name|]</b></font>
+<p>
+<form action="paystation_refresh.php" method="post">
+<input type="hidden" name="paystation" value="">
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+	<td><font class="medium">
+
+		<img src="images/blank.gif" width="300" height="1" border=0 alt=""><br>
+		
+		Please enter the amount you wish to pay in the space provided below.<br>
+		<img SRC="images/blank.gif" WIDTH="1" HEIGHT="15"><br>
+	</font></td>
+	<td colspan="2">&nbsp;</td>
+	<td width="100%">&nbsp;</td>
+</tr>
+<tr>
+	<td>
+	<table border="0" cellpadding="3" cellspacing="0" bgcolor="#eeeeee">
+		<tr>
+			<td colspan="5"><font class="medium">&nbsp;</font></td>
+		</tr>
+		<tr>
+			<td><font class="medium">&nbsp;&nbsp;&nbsp;</font></td>
+			<td><font class="medium"><b>Payment Amount</b></font></td>
+			<td><font class="medium">&nbsp;&nbsp;&nbsp;</font></td>
+
+			<td><input type="text" name="amount" VALUE="10.00"></td>
+			<td><font class="medium">&nbsp;&nbsp;&nbsp;</font></td>
+		</tr>
+		<tr>
+			<td><font class="medium">&nbsp;</font></td>
+			<td colspan="3" align="right"><input type="image" src="images/paystation-paynow.gif" width="100" height="42" border="0" alt="Pay now with Paystation"><br></td>
+			<td><font class="medium">&nbsp;</font></td>
+		</tr>
+		<tr>
+
+			<td></td>
+			<td colspan="3"><font class="small"><br><b>ONLY WITH A TEST ACCOUNT:</b><br>
+				Use the following cent values to get the corresponding response form the bank emulator.<br>
+				.00 - Transaction Successful<br>
+				.51 - Insufficient Funds<br>
+				.54 - Expired Card<br>
+
+				.57 - Transaction Type Not Supported<br>
+				.75 - Bank Declined Transaction<br>
+				.91 - Error Communicating with Bank<br>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+
+			<td colspan="5"><img SRC="images/blank.gif" WIDTH="1" HEIGHT="10"><br></td>
+		</tr>
+	</table>
+	</td>
+	<td><img SRC="images/blank.gif" WIDTH="10" HEIGHT="1"></td>
+	<td valign="top"><img SRC="images/blank.gif" WIDTH="1" HEIGHT="35"><br><a href="javascript:verify()"><img src="images/paymark-click-to-verify.gif" width="60" height="76" border="0" alt=""></a><br><img SRC="images/blank.gif" WIDTH="1" HEIGHT="10"></td>
+	<td><font class="medium">&nbsp;</font></td>
+</tr>
+</table>
+</form>
+
+</td>
+</tr>
+</table>
+</body>
+</html>

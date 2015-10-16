@@ -1037,6 +1037,7 @@ class Model extends Dbase
 		$framed = $this->getProductsByBatch('', '', 'framed', 'all');
 		$canvas = $this->getProductsByBatch('', '', 'canvas', 'all');
 		$prints = $this->getProductsByBatch('', '', 'print', 'all');
+		$cards = $this->getProductsByBatch('', '', 'card', 'all');
 		$html .= "\t\t\t\t\t".'<h4>Choose an artwork you wish to edit from one of the select boxes below</h4>'."\n";
 		$html .= "\t\t\t\t\t".'<form action="index.php?page=adminartwork" method="post" class="form">'."\n";
 		
@@ -1051,7 +1052,7 @@ class Model extends Dbase
 			$html .= "\t\t\t\t\t\t".'</select>'."\n";
 		}
 		
-		// if $framed has an array of all the canvas
+		// if $canvas has an array of all the canvas
 		if (isset($canvas)) {
 			$html .= "\t\t\t\t\t\t".'<label for="canvas_artwork">canvas</label>'."\n";
 			$html .= "\t\t\t\t\t\t".'<select name="canvas_artwork" id="framed_artwork">'."\n";
@@ -1062,12 +1063,22 @@ class Model extends Dbase
 			$html .= "\t\t\t\t\t\t".'</select>'."\n";
 		}
 		
-		// if $framed has an array of all the prints
+		// if $prints has an array of all the prints
 		if (isset($prints)) {
 			$html .= "\t\t\t\t\t\t".'<label for="print_artwork">prints</label>'."\n";
 			$html .= "\t\t\t\t\t\t".'<select name="print_artwork" id="framed_artwork">'."\n";
 			$html .= "\t\t\t\t\t\t\t".'<option value="0">Please select...</option>'."\n";
 			foreach ($prints as $artwork) {
+				$html .= "\t\t\t\t\t\t\t".'<option value="'.$artwork['artID'].'">\''.$artwork['artName'].'\' by '.$artwork['artistName'].'</option>'."\n";
+			}
+			$html .= "\t\t\t\t\t\t".'</select>'."\n";
+		}
+	    // if $cards has an array of all the cards
+		if (isset($cards)) {
+			$html .= "\t\t\t\t\t\t".'<label for="print_artwork">cards</label>'."\n";
+			$html .= "\t\t\t\t\t\t".'<select name="print_artwork" id="framed_artwork">'."\n";
+			$html .= "\t\t\t\t\t\t\t".'<option value="0">Please select...</option>'."\n";
+			foreach ($cards as $artwork) {
 				$html .= "\t\t\t\t\t\t\t".'<option value="'.$artwork['artID'].'">\''.$artwork['artName'].'\' by '.$artwork['artistName'].'</option>'."\n";
 			}
 			$html .= "\t\t\t\t\t\t".'</select>'."\n";

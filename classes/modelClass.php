@@ -1031,57 +1031,27 @@ class Model extends Dbase
 	}
 
 
-	// this function collects the art in the 3 categories (framed, canvas and prints) from the database
+	// This function collects the art in the 4 categories (framed, canvas, prints and cards) from the database
 	// it returns a form with a dropdown box for each format/category in $html
 	public function selectArtworkForm() {
-		$framed = $this->getProductsByBatch('', '', 'framed', 'all');
-		$canvas = $this->getProductsByBatch('', '', 'canvas', 'all');
-		$prints = $this->getProductsByBatch('', '', 'print', 'all');
-		$cards = $this->getProductsByBatch('', '', 'card', 'all');
 		$html .= "\t\t\t\t\t".'<h4>Choose an artwork you wish to edit from one of the select boxes below</h4>'."\n";
 		$html .= "\t\t\t\t\t".'<form action="index.php?page=adminartwork" method="post" class="form">'."\n";
 		
-		// if $framed has an array of all the framed artwork
-		if (isset($framed)) {
-			$html .= "\t\t\t\t\t\t".'<label for="framed_artwork">framed</label>'."\n";
-			$html .= "\t\t\t\t\t\t".'<select name="framed_artwork" id="framed_artwork">'."\n";
-			$html .= "\t\t\t\t\t\t\t".'<option value="0">Please select...</option>'."\n";
-			foreach ($framed as $artwork) {
-				$html .= "\t\t\t\t\t\t\t".'<option value="'.$artwork['artID'].'">\''.$artwork['artName'].'\' by '.$artwork['artistName'].'</option>'."\n";
+		$types = array('framed', 'canvas', 'print', 'card');
+
+		// Loop over each type and display as a select list.
+	    foreach ($types as $type) {
+			$artworks = $this->getProductsByBatch('', '', $type, 'all');
+			// Are there artworks for this type?
+			if (isset($artworks)) {
+				$html .= "\t\t\t\t\t\t".'<label for="'.$type.'_artwork">'.$type.'</label>'."\n";
+				$html .= "\t\t\t\t\t\t".'<select name="'.$type.'_artwork" id="'.$type.'_artwork">'."\n";
+				$html .= "\t\t\t\t\t\t\t".'<option value="0">Please select...</option>'."\n";
+				foreach ($artworks as $artwork) {
+					$html .= "\t\t\t\t\t\t\t".'<option value="'.$artwork['artID'].'">\''.$artwork['artName'].'\' by '.$artwork['artistName'].'</option>'."\n";
+				}
+				$html .= "\t\t\t\t\t\t".'</select>'."\n";
 			}
-			$html .= "\t\t\t\t\t\t".'</select>'."\n";
-		}
-		
-		// if $canvas has an array of all the canvas
-		if (isset($canvas)) {
-			$html .= "\t\t\t\t\t\t".'<label for="canvas_artwork">canvas</label>'."\n";
-			$html .= "\t\t\t\t\t\t".'<select name="canvas_artwork" id="framed_artwork">'."\n";
-			$html .= "\t\t\t\t\t\t\t".'<option value="0">Please select...</option>'."\n";
-			foreach ($canvas as $artwork) {
-				$html .= "\t\t\t\t\t\t\t".'<option value="'.$artwork['artID'].'"><strong>\''.$artwork['artName'].'\'</strong> by '.$artwork['artistName'].'</option>'."\n";
-			}
-			$html .= "\t\t\t\t\t\t".'</select>'."\n";
-		}
-		
-		// if $prints has an array of all the prints
-		if (isset($prints)) {
-			$html .= "\t\t\t\t\t\t".'<label for="print_artwork">prints</label>'."\n";
-			$html .= "\t\t\t\t\t\t".'<select name="print_artwork" id="framed_artwork">'."\n";
-			$html .= "\t\t\t\t\t\t\t".'<option value="0">Please select...</option>'."\n";
-			foreach ($prints as $artwork) {
-				$html .= "\t\t\t\t\t\t\t".'<option value="'.$artwork['artID'].'">\''.$artwork['artName'].'\' by '.$artwork['artistName'].'</option>'."\n";
-			}
-			$html .= "\t\t\t\t\t\t".'</select>'."\n";
-		}
-	    // if $cards has an array of all the cards
-		if (isset($cards)) {
-			$html .= "\t\t\t\t\t\t".'<label for="print_artwork">cards</label>'."\n";
-			$html .= "\t\t\t\t\t\t".'<select name="print_artwork" id="framed_artwork">'."\n";
-			$html .= "\t\t\t\t\t\t\t".'<option value="0">Please select...</option>'."\n";
-			foreach ($cards as $artwork) {
-				$html .= "\t\t\t\t\t\t\t".'<option value="'.$artwork['artID'].'">\''.$artwork['artName'].'\' by '.$artwork['artistName'].'</option>'."\n";
-			}
-			$html .= "\t\t\t\t\t\t".'</select>'."\n";
 		}
 		$html .= "\t\t\t\t\t\t".'<input type="submit" name="art_select" value="select artwork" />'."\n";
 		$html .= "\t\t\t\t\t".'</form>'."\n";
@@ -1093,7 +1063,7 @@ class Model extends Dbase
 	// it returns a single id in $id if one option has been selected from the 3 drop down menus.
 	public function checkArtworkSelected() {
 		extract($_POST);
-		if ($framed_artwork != 0 && $canvas_artwork != 0 && $print_artwork != 0) {
+		if ($framed_artwork != 0 && $canvas_artwork != 0 && $print_artwork != 0 && $card_artwork != 0) {
 			$id = 'please select only one artwork to edit';
 			return $id;
 		}
@@ -1105,7 +1075,19 @@ class Model extends Dbase
 			$id = 'please select only one artwork to edit';
 			return $id;
 		}
+		else if ($framed_artwork != 0 && $card_artwork != 0) {
+			$id = 'please select only one artwork to edit';
+			return $id;
+		}
 		else if ($canvas_artwork != 0 && $print_artwork != 0) {
+			$id = 'please select only one artwork to edit';
+			return $id;
+		}
+		else if ($canvas_artwork != 0 && $card_artwork != 0) {
+			$id = 'please select only one artwork to edit';
+			return $id;
+		}
+		else if ($print_artwork != 0 && $card_artwork != 0) {
 			$id = 'please select only one artwork to edit';
 			return $id;
 		}
@@ -1117,6 +1099,9 @@ class Model extends Dbase
 		}
 		else if ($print_artwork != 0) {
 			$id = $print_artwork;
+		}
+	    else if ($card_artwork != 0) {
+			$id = $card_artwork;
 		}		
 		return $id;
 	}

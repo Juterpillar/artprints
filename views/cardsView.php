@@ -226,7 +226,7 @@ class CardsView extends View
 		}
 		$count = $this->model->countArtworks('catalogue', 'card');
 	    $products = $this->model->getProductsByBatch($this->catNum, $this->prodPerPage, 'card');
-	    $url = 'card';
+	    $url = 'cards';
 		if (is_array($products)) {
 			// show top links
 			$html .= $this->model->displayPageLinks($count, $this->prodPerPage, $this->catNum, $url);

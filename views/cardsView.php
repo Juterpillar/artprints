@@ -38,7 +38,7 @@ class CardsView extends View
 			switch ($_GET['f']) {
 		    // subject
 		    case 's':
-		        $url = 'card&f=s&s='.$_GET['s'];
+		        $url = 'cards&f=s&s='.$_GET['s'];
 		        $count = $this->model->countArtworks('subject', $_GET['s'], 'card');
 		        $products = $this->model->getProductsByBatch($this->catNum, $this->prodPerPage, 'card', '', '', 'subject', $_GET['s']);
 		    	if (is_array($products)) {
@@ -51,7 +51,7 @@ class CardsView extends View
 		        break;
 		    // artist
 		    case 'a':
-		    	$url = 'card&f=a&a='.$_GET['a'];
+		    	$url = 'cards&f=a&a='.$_GET['a'];
 		    	$count = $this->model->countArtworks('artist', $_GET['a'], 'card');
 		    	$products = $this->model->getProductsByBatch($this->catNum, $this->prodPerPage, 'card', '', '', 'artist', $_GET['a']);
 		    	if ($count > 0 && is_array($products)) {
@@ -67,7 +67,7 @@ class CardsView extends View
 		    // size
 		    case 'z':
 		    	$sizeName = $_GET['z'];
-		    	$url = 'card&f=z&z='.$sizeName;
+		    	$url = 'cards&f=z&z='.$sizeName;
 		    	$count = $this->model->countArtworks('size', $sizeName, 'card');
 		    	$products = $this->model->getProductsByBatch($this->catNum, $this->prodPerPage, 'card', '', '', 'size', $sizeName);
 		    	if (is_array($products)) {
@@ -80,7 +80,7 @@ class CardsView extends View
 		    	break;
 		    // price
 		    case 'p':
-		    	$url = 'card&f=p&p='.$_GET['p'];
+		    	$url = 'cards&f=p&p='.$_GET['p'];
 		    	$count = $this->model->countArtworks('price', $_GET['p'], 'card');
 		    	$products = $this->model->getProductsByBatch($this->catNum, $this->prodPerPage, 'card', '', '', 'price', $_GET['p']);
 		    	$price = $this->model->getMinMax($_GET['p']);
@@ -102,7 +102,7 @@ class CardsView extends View
 		    	break;
 		    // orientation
 		    case 'o':
-		    	$url = 'card&f=o&o='.$_GET['o'];
+		    	$url = 'cards&f=o&o='.$_GET['o'];
 		    	$allProducts = $this->model->getProductsByBatch($this->catNum, $this->prodPerPage, 'card', '', '', 'orientation', $_GET['o']);
 		    	if (is_array($allProducts)) {
 		    		$singleProducts = array();

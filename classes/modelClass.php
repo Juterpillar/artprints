@@ -144,6 +144,7 @@ class Model extends Dbase
 							$priceType = 'RRP';
 						}
 					}
+					$product['artImage'] = $product['artImage'] == '' ? 'no-image.png' : $product['artImage'];
 					$product['price'] = min($product['price']);
 					$html .= "\t\t\t\t\t\t".'<a href="index.php?page=product&amp;id='.$product['artID'].'"><figure class="product_set">'."\n";
 					$html .= "\t\t\t\t\t\t\t".'<img'.$shadow.' src="images/thumbs/'.$product['artImage'].'" title="view details" alt="'.$product['artName'].'" />'."\n";

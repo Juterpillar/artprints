@@ -240,6 +240,7 @@ class ProductView extends View
 		if ($artType == 'canvas') {
 			$html .= "\t\t\t\t\t\t".'<a href="images/'.$size.'/canvas_info.jpg" id="canvas_info" class="fancybox" title="canvas information"><h6><i class="icon-question-sign"></i> click here for information about canvas</h6></a>'."\n";
 		}
+		$artImage = $artImage == '' ? 'no-image.png' : $artImage;
 		$html .= "\t\t\t\t\t".'<h6><a href="index.php?page='.$artType.'"><i class="icon-circle-arrow-left"></i> back to '.$artType.' catalogue</a></h6>'."\n";
 		$html .= "\t\t\t\t\t".'<div class="icon_nav">'."\n";
 		$html .= "\t\t\t\t\t\t".'<a href="images/'.$size.'/'.$artImage.'" class="fancybox" title="\''.$artName.'\' by '.$artistName.'"><img class="'.$shadow.'product_image" src="images/'.$this->device['type'].'/'.$artImage.'" title="gallery view" alt="'.$artName.' by '.$artistName.'" />'."\n";

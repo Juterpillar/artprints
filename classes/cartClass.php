@@ -17,7 +17,7 @@ class Cart
 		}
 
 		// check if clicked to increase an item quantity
-		if (isset($_POST['add'])) {
+		if (isset($_POST['add']) && isset($_POST['sizeID'])) {
 			$sizeID = $_POST['sizeID'];
 			$savedQuantity = $_SESSION['cart'][$sizeID]['orderProdQty'];
 			$_SESSION['cart'][$sizeID]['orderProdQty'] = $savedQuantity + 1;

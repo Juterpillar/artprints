@@ -143,25 +143,34 @@ class Cart
 	
 	// calculates shipping based on
 	// * the island being shipping to  (north or south)
+	// * $6 for 0-30 cards, $12 for 31 - 60 cards etc
 	// * $10 for 1-10 prints, $20 for 11-20 prints etc
 	// * $30 for each framed/canvas item (south island)
 	// * $20 for every 2 framed/canvas items (north island)
 	public function calculateShipping() {
 		// calculate tubes and cost
 		$printsShip = 0;
+		$cardsShip = 0;
 		if (isset($_SESSION['cart'])) {
 			foreach ($_SESSION['cart'] as $item) {
 				if ($item['format'] == 'print') {
 					$printsShip = $printsShip + $item['orderProdQty'];
 				}
+				elseif ($item['format'] == 'card') {
+					$cardsShip = $cardsShip + $item['orderProdQty'];
+				}
 			}
+			// calculate print shipping
 			$tubes = ceil($printsShip / 10);
 			$printsShip = $tubes * 10;
+			// calculate card shipping
+			$parcels = ceil($cardsShip / 30);
+			$cardsShip = $parcels * 6;
 			// calculate packages and cost
 			$island = $_SESSION['island1'];
 			$otherShip = 0;
 			foreach ($_SESSION['cart'] as $item) {
-				if ($item['format'] != 'print') {
+				if ($item['format'] != 'print' && $item['format'] != 'card') {
 					$otherShip = $otherShip + $item['orderProdQty'];
 				}
 			}
@@ -172,7 +181,7 @@ class Cart
 			else {
 				$otherShip = $otherShip * 30;
 			}
-			$shipping = $printsShip + $otherShip;
+			$shipping = $printsShip + $cardsShip + $otherShip;
 		}
 		return $shipping;
 	}	

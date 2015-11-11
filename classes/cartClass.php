@@ -21,6 +21,7 @@ class Cart
 			$sizeID = $_POST['sizeID'];
 			$savedQuantity = $_SESSION['cart'][$sizeID]['orderProdQty'];
 			$_SESSION['cart'][$sizeID]['orderProdQty'] = $savedQuantity + 1;
+			unset($_POST['add']);
 		}
 		// check if clicked to reduce an item quantity
 		if (isset($_POST['minus'])) {
@@ -30,6 +31,7 @@ class Cart
 			if ($_SESSION['cart'][$sizeID]['orderProdQty'] < 1) {
 				unset($_SESSION['cart'][$sizeID]);
 			}
+			unset($_POST['minus']);
 		}
 		// check if clicked to delete item out of the cart
 		if (isset($_POST['delete'])) {

@@ -19,20 +19,20 @@ class CardsView extends View
 	protected function displayContent()
 	{
 		// display filter sidebar
-		$html = $this->model->filterAside('card');
-		$html .= "\t\t\t\t".'<div id="content">'."\n";	
+		$html = $this->model->filterAside('cards');
+		$html .= "\t\t\t\t".'<div id="content">'."\n";
 		// if over credit limit
 		if ($_SESSION['access'] == 'customer') {
 			$credit = $this->model->calcCreditDets($_SESSION['credit'], $_SESSION['custID']);
 			if ($credit == 0) {
-				$html .= "\t\t\t\t\t".'<div class="success'; 
+				$html .= "\t\t\t\t\t".'<div class="success';
 				if ($this->device['type'] == 'desktop') {
 					$html .= ' width';
 				}
 				$html .= "\t\t\t\t\t\t".' brown"><p>sorry, you cannot place a new order as you are at your credit limit</p>'."\n";
 				$html .= "\t\t\t\t\t".'</div>'."\n";
-			}	
-		}	
+			}
+		}
 		// check if a filter has been selected
 		if (isset($_GET['f'])) {
 			switch ($_GET['f']) {

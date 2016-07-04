@@ -144,17 +144,17 @@ abstract class View
 
 	private function displayPreNav() {
 		// links available to non-logged in guests
-		if (!isset($_SESSION['name']) || $this->pageInfo['pageName'] == 'logout') {	
+		if (!isset($_SESSION['name']) || $this->pageInfo['pageName'] == 'logout') {
 			$links = array('login', 'register', 'shipping');
 		}
 
 		// links available to logged in admin
 		else if (isset($_SESSION['name']) && $_SESSION['access'] == 'admin') {
-			$links = array('logout', 'dashboard', 'shipping');
+			$links = array('account', 'logout', 'dashboard', 'shipping', 'cart', 'checkout');
 		}
 
 		// links available to logged in guests
-		if (isset($_SESSION['name'])) {
+		else if (isset($_SESSION['name'])) {
 			$links = array('account', 'logout', 'shipping', 'cart', 'checkout');
 		}
 

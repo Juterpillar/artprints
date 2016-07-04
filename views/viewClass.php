@@ -227,10 +227,10 @@ abstract class View
 	// displays the mainnav and uses foreach to determine the current page so link displayed differently
 	private function displayNav() {
 		// all links
-		$links = array('home', 'framed', 'prints', 'canvas', 'cards', 'about', 'contact', 'faq');
-		
+		$links = array('framed', 'prints', 'matted_prints', 'canvas', 'cards', 'about');
+
 		// links for no-mobile class
-		$nomobile = array('home', 'about', 'contact', 'faq');
+		$nomobile = array('home', 'about');
 
 		$html = "\t\t\t".'<nav id="main_nav">'."\n";
 		$html .= "\t\t\t\t".'<ul>'."\n";
@@ -253,18 +253,11 @@ abstract class View
 			if ($link == 'about') {
 				$link = 'about us';
 			}
-			else if ($link == 'home') {
-				$html .= '<i class="icon-home"></i>';
+			else if ($link == 'matted_prints') {
+				$link = 'matted prints';
 			}
-			else if ($link == 'contact') {
-				$html .= '<i class="icon-phone"></i>';
-			}
-			else if ($link == 'faq') {
-				$html .= '<i class="icon-question-sign"></i>';
-			}
-
 			$html .= $link.'</a></li>'."\n";
-		}		
+		}
 		$html .= "\t\t\t\t".'</ul>'."\n";
 		$html .= "\t\t\t".'</nav>'."\n";
 		return $html;
@@ -323,6 +316,9 @@ abstract class View
 			}
 			else if ($link == 'about') {
 				$link = 'about us';
+			}
+			else if ($link == 'matted_prints') {
+				$link = 'matted prints';
 			}
 			else if ($link == 'catalogue?f=framed' || $link == 'catalogue?f=canvas' || $link == 'catalogue?f=prints') {
 				$link = explode('=', $link);

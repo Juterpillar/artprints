@@ -88,7 +88,7 @@ class MattedPrintsView extends View
 					$min = 0;
 				}
 		    	if (is_array($products)) {
-		    		$html .= "\t\t\t\t\t".'<h2 class="title">prints between $'.$min.' and $'.$max.'</h2>'."\n";
+		    		$html .= "\t\t\t\t\t".'<h2 class="title">matted prints between $'.$min.' and $'.$max.'</h2>'."\n";
 		    	}
 		    	else {
 		    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there are no matted prints between $'.$min.' and $'.$max.'</h3>'."\n";
@@ -171,10 +171,10 @@ class MattedPrintsView extends View
 		    		$chunk = array_chunk($products, $this->prodPerPage, true);
 		    		$chunkNum = $this->catNum - 1;
 		    		$products = $chunk[$chunkNum];
-		    		$html .= "\t\t\t\t\t".'<h2 class="title">prints of '.$_GET['o'].' orientation</h2>'."\n";
+		    		$html .= "\t\t\t\t\t".'<h2 class="title">matted prints of '.$_GET['o'].' orientation</h2>'."\n";
 		    	}
 		    	else {
-		    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there are no matted prints of '.$_GET['o'].' orientation</h3>'."\n";
+		    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there are no matted matted prints of'.$_GET['o'].' orientation</h3>'."\n";
 		    		$html .= $this->getAllPrints();
 		    	}
 		    	break;

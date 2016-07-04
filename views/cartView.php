@@ -87,6 +87,7 @@ class CartView extends View
 				$html .= "\t\t\t\t\t\t\t".'<figcaption>'."\n";
 				$html .= "\t\t\t\t\t\t\t\t".'<h4>'.$artInfo['artName'].'</h4>'."\n";
 				$html .= "\t\t\t\t\t\t\t\t".'<h6>'.$artInfo['artistName'].'</h6>'."\n";
+				$artInfo['artType'] = $artInfo['artType'] == 'matted_print' ? 'matted print' : $artInfo['artType'];
 				$html .= "\t\t\t\t\t\t\t\t".'<p>'.$artInfo['artType'].'</p>'."\n";
 				$html .= "\t\t\t\t\t\t\t\t".'<p>'.$sizeInfo['sizeWidth'].'mm x '.$sizeInfo['sizeHeight'].'mm</p>'."\n";
 				$html .= "\t\t\t\t\t\t\t\t".'<p>'.$quantity.' @ $'.sprintf("%01.2f", $price).'</p>'."\n";

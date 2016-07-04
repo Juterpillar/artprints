@@ -47,9 +47,10 @@ class ProductView extends View
 		$sizeNum = count($type['sizes']);			// number of sizes available in this format
 		$sizePlural = ($sizeNum > 1) ? 's' : '';	// add a plural if required
 		$fromPrice = min($prices['size']);			// calculates cheapest price for this format
+		$artLabel = $artType == 'matted_print' ? 'matted print' : $artType;
 		$html = "\t\t\t\t".'<aside>'."\n";
 		$html .= "\t\t\t\t\t".'<h2 id="pricing_heading" class="mobile">size/format options <i class="icon-circle-arrow-down"></i></h2>'."\n";
-		$html .= "\t\t\t\t\t".'<h2 class="title">'.$artType.' from $'.$fromPrice.'<br />';
+		$html .= "\t\t\t\t\t".'<h2 class="title">'.$artLabel.' from $'.$fromPrice.'<br />';
 		if(!isset($_SESSION['custID'])) {
 			$html .= '<span> (retail price)</span>';
 		}
@@ -61,14 +62,14 @@ class ProductView extends View
 		$html .= "\t\t\t\t\t".'<form method="post" action="'.$_SERVER['REQUEST_URI'].'" id="add_to_cart_form">'."\n";
 		$html .= "\t\t\t\t\t".'<input type="hidden" name="id" value="'.$artID.'">'."\n";
 		$html .= "\t\t\t\t\t".'<input type="hidden" name="artistID" value="'.$artistID.'">'."\n";
-		
+
 		// sizes
-		$html .= "\t\t\t\t\t\t".'<h4 class="no_mobile clear">'.$sizeNum.' '.$artType.' size'.$sizePlural.'</h4>'."\n";
+		$html .= "\t\t\t\t\t\t".'<h4 class="no_mobile clear">'.$sizeNum.' '.$artLabel.' size'.$sizePlural.'</h4>'."\n";
 		$html .= "\t\t\t\t\t\t".'<div class="select">'."\n";
 		$html .= "\t\t\t\t\t\t\t".'<i class="icon-circle-arrow-down"></i>'."\n";
 		$html .= "\t\t\t\t\t\t\t".'<select name="sizeID">'."\n";
 		if (isset($mobile)) {
-			$html .= "\t\t\t\t\t\t\t\t".'<option value="" class="mobile">avaliable in '.$sizeNum.' '.$artType.' size'.$sizePlural.'</option>'."\n";
+			$html .= "\t\t\t\t\t\t\t\t".'<option value="" class="mobile">avaliable in '.$sizeNum.' '.$artLabel.' size'.$sizePlural.'</option>'."\n";
 		}
 		foreach ($types as $type) {
 			if ($type['artType'] == $artType) {
@@ -143,7 +144,8 @@ class ProductView extends View
 			$type['sizes'] = $this->model->getSizePrices($type['artID']);
 			// if sizes are availble, get the prices
 			if ($type['artType'] != $artType && is_array($type['sizes'])) {
-				$html .= "\t\t\t\t\t\t\t\t".'<a href="index.php?page=product&id='.$type['artID'].'" class="button">view '.$type['artType'].'</a>';
+				$label = $type['artType'] == 'matted_print' ? 'matted print' : $type['artType'];
+				$html .= "\t\t\t\t\t\t\t\t".'<a href="index.php?page=product&id='.$type['artID'].'" class="button">view '.$label.'</a>';
 			}
 		}
 		$html .= "\t\t\t\t\t".'</form>'."\n";
@@ -162,6 +164,9 @@ class ProductView extends View
 		}
 		if ($artType == 'prints') {
 			$typeLabel = 'print';
+		}
+		if ($artType == 'matted_print') {
+			$typeLabel = 'matted print';
 		}
 		else {
 			$typeLabel = $artType;

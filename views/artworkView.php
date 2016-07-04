@@ -244,6 +244,11 @@ class ArtworkView extends View
 			$html .= ' selected="selected"';
 		}
 		$html .= '>card</option>'."\n";
+		$html .= "\t\t\t\t\t\t\t".'<option value="matted_print"';
+		if ($_POST['art_type'] == 'matted_print') {
+			$html .= ' selected="selected"';
+		}
+		$html .= '>matted print</option>'."\n";
 		$html .= "\t\t\t\t\t\t".'</select>'."\n";
 		$html .= $error['art_type'];
 		// art title

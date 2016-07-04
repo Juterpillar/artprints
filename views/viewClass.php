@@ -99,7 +99,11 @@ abstract class View
 		}
 		$html .= "\t".'<script type="text/javascript" src="js/default.js" charset="utf-8"></script>'."\n";
 		$html .= '</head>'."\n";
-		if ($this->pageInfo['pageName'] == 'framed' || $this->pageInfo['pageName'] == 'canvas' || $this->pageInfo['pageName'] == 'prints' || $this->pageInfo['pageName'] == 'cards') {
+		if ($this->pageInfo['pageName'] == 'framed'
+		|| $this->pageInfo['pageName'] == 'canvas'
+		|| $this->pageInfo['pageName'] == 'matted_prints'
+		|| $this->pageInfo['pageName'] == 'prints'
+		|| $this->pageInfo['pageName'] == 'cards') {
 			$html .= '<body id="catalogue">'."\n";
 		}
 		else {

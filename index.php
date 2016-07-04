@@ -60,12 +60,15 @@ class PageSelector
 			break;
 			case 'login': include 'views/loginView.php';
 			$view = new LoginView($pageInfo, $model, $device);
-			break;			
+			break;
 			case 'framed': include 'views/framedView.php';
 			$view = new FramedView($pageInfo, $model, $device);
 			break;
 			case 'prints': include 'views/printsView.php';
 			$view = new PrintsView($pageInfo, $model, $device);
+			break;
+			case 'matted_prints': include 'views/mattedPrintsView.php';
+			$view = new MattedPrintsView($pageInfo, $model, $device);
 			break;
 			case 'canvas': include 'views/canvasView.php';
 			$view = new CanvasView($pageInfo, $model, $device);

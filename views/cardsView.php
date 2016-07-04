@@ -71,10 +71,10 @@ class CardsView extends View
 		    	$count = $this->model->countArtworks('size', $sizeName, 'card');
 		    	$products = $this->model->getProductsByBatch($this->catNum, $this->prodPerPage, 'card', '', '', 'size', $sizeName);
 		    	if (is_array($products)) {
-		    		$html .= "\t\t\t\t\t".'<h2 class="title">card prints available in '.$sizeName.'</h2>'."\n";
+		    		$html .= "\t\t\t\t\t".'<h2 class="title">cards available in '.$sizeName.'</h2>'."\n";
 		    	}
 		    	else {
-		    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there are no card prints available in '.$sizeName.'</h3>'."\n";
+		    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there are no cards available in '.$sizeName.'</h3>'."\n";
 		    		$html .= $this->getAllPrints();
 		    	}
 		    	break;
@@ -90,11 +90,11 @@ class CardsView extends View
 					$min = 0;
 				}
 		    	if (is_array($products)) {
-		    		$html .= "\t\t\t\t\t".'<h2 class="title">card prints between $'.$min.' and $'.$max.'</h2>'."\n";
-		    		
+		    		$html .= "\t\t\t\t\t".'<h2 class="title">cards between $'.$min.' and $'.$max.'</h2>'."\n";
+
 		    	}
 		    	else {
-		    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there are no card prints between $'.$min.' and $'.$max.'</h3>'."\n";
+		    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there are no cards between $'.$min.' and $'.$max.'</h3>'."\n";
 		    		$html .= $this->getAllPrints();
 		    	}
 
@@ -179,23 +179,23 @@ class CardsView extends View
 		    		$chunkNum = $this->catNum - 1;
 		    		$products = $chunk[$chunkNum];
 		    		if ($count > 0) {
-		    			$html .= "\t\t\t\t\t".'<h2 class="title">card prints of '.$_GET['o'].' orientation</h2>'."\n";
+		    			$html .= "\t\t\t\t\t".'<h2 class="title">cards of '.$_GET['o'].' orientation</h2>'."\n";
 		    		}
 		    		else {
-			    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there is no card prints of '.$_GET['o'].' orientation</h3>'."\n";
+			    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there are no cards of '.$_GET['o'].' orientation</h3>'."\n";
 			    		$count = 0;
 			    		$products = 0;
 			    		$html .= $this->getAllPrints();
 		    		}
 		    	}
 		    	else {
-		    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there are no card prints of '.$_GET['o'].' orientation</h3>'."\n";
+		    		$html .= "\t\t\t\t\t".'<h3 class="red no_matches">sorry, there are no cards of '.$_GET['o'].' orientation</h3>'."\n";
 		    		$html .= $this->getAllPrints();
 		    	}
 		    	break;
 		    default:
 		    	$html .= $this->getAllPrints();
-			}	
+			}
 		}
 		else {
 			$html .= $this->getAllPrints();

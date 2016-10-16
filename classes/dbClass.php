@@ -207,20 +207,20 @@ class Dbase
 						$_SESSION['delCity'] = $delivery_city;
 						$_SESSION['delPostcode'] = $delivery_postcode;
 						$_SESSION['phone'] = $phone;
-						$_SESSION['email'] = $email;	
+						$_SESSION['email'] = $email;
 						$_SESSION['billAddress'] = $billing_address;
 						$_SESSION['billSuburb'] = $billing_suburb;
 						$_SESSION['billCity'] = $billing_city;
 						$_SESSION['billPostcode'] = $billing_postcode;
-						$_SESSION['island1'] = $island;	
-						$_SESSION['notes'] = $notes;	
+						$_SESSION['island1'] = $island;
+						$_SESSION['notes'] = $notes;
 					}
 					else if ($reset != '') {
 						$to = $email;
 						$subject = 'Your Artprints password has been reset';
-						$headers = 'CC: shop@afas.co.nz'."\n";
-						$headers .= 'BCC: niki@afas.co.nz'."\n";
-						$headers .= 'From: shop@afas.co.nz'."\n";
+						$headers = 'CC: nzartprints@gmail.com'."\n";
+						$headers .= 'BCC: julialarsen.nz.co.nz'."\n";
+						$headers .= 'From: nzartprints@gmail.com'."\n";
 						$headers .= 'MIME-Version: 1.0'."\n";
 						$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 						$message = '<html><body>';
@@ -974,9 +974,9 @@ class Dbase
 				if ($status == 'active') {
 					$to = $email;
 					$subject = 'Your Artprints account has been activated!';
-					$headers .= 'CC: shop@afas.co.nz'."\n";
-					$headers .= 'BCC: niki@afas.co.nz'."\n";
-					$headers .= 'From: shop@afas.co.nz'."\n";
+					$headers .= 'CC: nzartprints@gmail.com'."\n";
+					$headers .= 'BCC: julialarsen.nz@gmail.com'."\n";
+					$headers .= 'From: nzartprints@gmail.com'."\n";
 					$headers .= 'MIME-Version: 1.0'."\n";
 					$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 					$message = '<html><body>';
@@ -1113,10 +1113,10 @@ class Dbase
 					// send order created so send confirmation email
 					$this->sendConfirmationEmail($orderID);
 					if ($shipping > 50) {
-						$to = 'shop@afas.co.nz';
+						$to = 'nzartprints@gmail.com';
 						$subject = 'Order with expensive shipping!';
 						$headers = 'BCC: niki@afas.co.nz'."\n";
-						$headers .= 'From: shop@afas.co.nz'."\n";
+						$headers .= 'From: nzartprints@gmail.com'."\n";
 						$headers .= 'MIME-Version: 1.0'."\n";
 						$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 						$message = '<html><body>';
@@ -1193,9 +1193,9 @@ class Dbase
 
 		$to = $_SESSION['email'];
 		$subject = 'Confirmation of your Artprints Order';
-		$headers = 'CC: shop@afas.co.nz'."\n";
+		$headers = 'CC: nzartprints@gmail.com'."\n";
 		$headers .= 'BCC: niki@afas.co.nz'."\n";
-		$headers .= 'From: shop@afas.co.nz'."\n";
+		$headers .= 'From: nzartprints@gmail.com'."\n";
 		$headers .= 'MIME-Version: 1.0'."\n";
 		$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 		$message = '<html"><body>';
@@ -1493,21 +1493,21 @@ class Dbase
 		extract($cust);
 		$to = $custEmail;
 		$subject = 'Your Artprints Order Has Been Dispatched!';
-		$headers = 'CC: shop@afas.co.nz'."\n";
+		$headers = 'CC: nzartprints@gmail.com'."\n";
 		$headers .= 'BCC: niki@afas.co.nz'."\n";
-		$headers .= 'From: shop@afas.co.nz'."\n";
+		$headers .= 'From: nzartprints@gmail.com'."\n";
 		$headers .= 'MIME-Version: 1.0'."\n";
 		$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 		$message = '<html><body>';
 		$message .= '<img src="http://www.artprints.kiwi.nz/images/logo_desktop.jpg" alt="Artprints: Publishers and Distributors" />'."\n";
 		$message .= '<h4>Hi '.$orderDelFirstName.' '.$orderDelLastName.',</h4>'."\n";
-		$message .= '<p>Your order for '.$custCompany.' has just been dispatched.</p>'."\n";  
+		$message .= '<p>Your order for '.$custCompany.' has just been dispatched.</p>'."\n";
 		if ($_POST['courier'] != '') {
 			$message .= '<p>You can trace your order using the Courier Tracking # '.$_POST['courier'].'.</p>'."\n";
 		}
 		$message .= '<p>We\'re only an email away if you\'d like to get in <a href="http://www.artprints.kiwi.nz/index.php?page=contact">contact </a>with us regarding your order.</p>'."\n";
 		$message .= '<p>Thanks for shopping at <a href="http://www.artprints.kiwi.nz/index.php?">artprints.kiwi.nz.</a></p>';
-				
+
 		// table for supplier, gst
 		$message .= '<table>'."\n";
 			$message .= '<tr>'."\n";

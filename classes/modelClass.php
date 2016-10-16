@@ -496,15 +496,15 @@ class Model extends Dbase
 		else {
 			$result['ok'] = false;
 		}
-	}	
+	}
 
 
 	// this functions send the email from the contact form
 	// returns false if fail or $html with success message if worked
-	public function sendContactEmail() {			
+	public function sendContactEmail() {
 		extract($_POST);
 		// send mail
-		$to = 'ju.explores@gmail.com, shop@afas.co.nz';
+		$to = 'julialarsen.nz@gmail.com, nzartprints@gmail.com';
 		$subject = 'New message from www.artprints.kiwi.nz';
 		$message = 'From: '.$name."\n".'Phone: '.$phone."\n".'Email: '.$email."\n".'Message: '.$message;
 		$headers = 'From: '.$email;

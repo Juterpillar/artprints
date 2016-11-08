@@ -10,13 +10,13 @@ class Dbase
 	private $db;
 
 	//	this function establishes a database connection
-	public function __construct() {	
+	public function __construct() {
 		try {
-			$this->db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);	
+			$this->db = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 			if (mysqli_connect_errno()) {
 				throw new Exception("Unable to establish database connection");
 			}
-		}	
+		}
 		catch(Exception $e)
 		{
 			die($e->getMessage());
@@ -31,13 +31,13 @@ class Dbase
 
 	// this function gets the info to render the page
 	// returns array $pageInfo of all info from row in database
-	public function getPageInfo($page) {		
+	public function getPageInfo($page) {
 		$qry = "SELECT pageID, pageName, pageTitle, pageHeading, pageDescription, pageContent, pageKeywords FROM pages WHERE pageName = '$page'";
 		$rs = $this->db->query($qry);
 		if ($rs) {
 			if ($rs->num_rows > 0) {
-				// convert the page data into an associative array $pageInfo[]		
-				$pageInfo = $rs->fetch_assoc(); 	
+				// convert the page data into an associative array $pageInfo[]
+				$pageInfo = $rs->fetch_assoc();
 				return $pageInfo;
 			}
 		}
@@ -47,8 +47,8 @@ class Dbase
 	}
 
 
-	// used if magic quotes is off to add slashes etc so queries etc do not break	
-	// no return here as '&' overwrites what's held in $_POST	
+	// used if magic quotes is off to add slashes etc so queries etc do not break
+	// no return here as '&' overwrites what's held in $_POST
 	public function sanitiseInput() {
 		foreach($_POST as &$post) {
 			$post = $this->db->real_escape_string($post);
@@ -62,7 +62,7 @@ class Dbase
 
 
 	// this function adds a new customer to the databse through $_POST on the register form
-	// the customer is added with a status of 'inactive' so they cannot login/order etc until 
+	// the customer is added with a status of 'inactive' so they cannot login/order etc until
 	// their account is approved by admin
 	// returns 'added', 'used', or 'fail' and sends an email to admin and customer if 'added'
 	public function addCustomer() {
@@ -86,9 +86,8 @@ class Dbase
 			if ($this->db->affected_rows > 0) {
 				$to = $email;
 				$subject = 'Artprints Account Request';
-				$headers .= 'CC: info@artprints.kiwi.nz'."\n";
-				$headers .= 'BCC: niki@afas.co.nz'."\n";
-				$headers .= 'From: info@artprints.kiwi.nz'."\n";
+				$headers .= 'BCC: nzartprints@gmail.com'."\n";
+				$headers .= 'From: noreply@artprints.kiwi.nz'."\n";
 				$headers .= 'MIME-Version: 1.0'."\n";
 				$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 				$message = '<html><body>';
@@ -106,19 +105,19 @@ class Dbase
 				$message = wordwrap($message, 70, "\r\n");
 				$message = stripslashes($message);
 				if (mail($to, $subject, $message, $headers)) {
-				} 
-				$msg = 'added';  
+				}
+				$msg = 'added';
 			}
 			// No record created - this is an unlikely scenario
 			else {
-				$msg = 'fail';  
+				$msg = 'fail';
 			}
 		}
 		// email already exists on the database
 		else {
-			$msg = 'used';  
+			$msg = 'used';
 		}
-		return $msg; 
+		return $msg;
 	}
 
 
@@ -136,9 +135,9 @@ class Dbase
 		$rs = $this->db->query($qry);
 		if ($rs) {
 			if ($rs->num_rows > 0) {
-				//	converts the user record into an associative array $user		
-				$cust = $rs->fetch_assoc(); 	
-				
+				//	converts the user record into an associative array $user
+				$cust = $rs->fetch_assoc();
+
 				// split the password into hash and salt to check against submitted password
 				$splitP = explode(':', $cust['custPassword']);
 				$salt = $splitP[0];
@@ -162,7 +161,7 @@ class Dbase
 		}
 		// something went wrong with the query (development only)
 		else {
-//			echo 'Error executing query '.$qry; 
+//			echo 'Error executing query '.$qry;
 		}
 	}
 
@@ -196,7 +195,7 @@ class Dbase
 			if ($rs) {
 				// if successful, update session details.
 				if ($this->db->affected_rows > 0) {
-					$result = 'success'; 
+					$result = 'success';
 					if ($_SESSION['access'] == 'customer') {
 						$_SESSION['first'] = $first_name;
 						$_SESSION['last'] = $last_name;
@@ -219,8 +218,8 @@ class Dbase
 						$to = $email;
 						$subject = 'Your Artprints password has been reset';
 						$headers = 'CC: nzartprints@gmail.com'."\n";
-						$headers .= 'BCC: julialarsen.nz.co.nz'."\n";
-						$headers .= 'From: nzartprints@gmail.com'."\n";
+						$headers .= 'BCC: julialarsen.nz@gmail.com'."\n";
+						$headers .= 'From: noreply@artprints.kiwi.nz'."\n";
 						$headers .= 'MIME-Version: 1.0'."\n";
 						$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 						$message = '<html><body>';
@@ -243,9 +242,9 @@ class Dbase
 			}
 			// error with query, unlikey except in development
 			else {
-//				 echo 'Error updating user details'.$qry;  
+//				 echo 'Error updating user details'.$qry;
 			}
-		return $result;   
+		return $result;
 	}
 
 
@@ -267,17 +266,17 @@ class Dbase
 		if ($rs) {
 			if ($rs->num_rows > 0) {
 				if ($id) {
-					// convert the page data into an associative array $customer[]		
-					$customer = $rs->fetch_assoc(); 	
+					// convert the page data into an associative array $customer[]
+					$customer = $rs->fetch_assoc();
 					return $customer;
 				}
 				else {
 					$customers = array();
 					// numeric indexed array
 					while($row = $rs->fetch_assoc()) {
-						$customers[] = $row;	
+						$customers[] = $row;
 					}
-					return $customers;	
+					return $customers;
 				}
 			}
 			else {
@@ -310,7 +309,7 @@ class Dbase
 		$qry = "UPDATE customers SET custPassword = '$password' WHERE custID = $id";
 		$rs = $this->db->query($qry);
 		if (!$rs) {
-//			echo 'Query error! '. $qry; 
+//			echo 'Query error! '. $qry;
 		}
 		else {
 			if ($this->db->affected_rows > 0) {
@@ -327,7 +326,7 @@ class Dbase
 	/* ---------------------------------------------------------------------- */
 	/* ------------------------------- artists ------------------------------ */
 	/* ---------------------------------------------------------------------- */
-	
+
 
 	// this function gets all the artists from the artists table
 	// returns array $artist
@@ -346,16 +345,16 @@ class Dbase
 		}
 		$rs = $this->db->query($qry);
 		// if at least 1 record retrieved
-		if($rs->num_rows > 0) { 
+		if($rs->num_rows > 0) {
 			$artists = array();
 			// numeric indexed array
 			while($row = $rs->fetch_assoc()) {
-				$artists[] = $row;		
+				$artists[] = $row;
 			}
 		}
 		 // no rows retrieved (the user has not made a purchase while logged in)
-		else { 
-//			echo "Error with getArtists query".$qry; 
+		else {
+//			echo "Error with getArtists query".$qry;
 		}
 		return $artists;
 	}
@@ -387,7 +386,7 @@ class Dbase
 		else {
 			if ($this->db->affected_rows > 0) {
 				if (!$id) {
-					$id = $this->db->insert_id; 
+					$id = $this->db->insert_id;
 					return $id;
 				}
 				return true;
@@ -410,22 +409,22 @@ class Dbase
 		$qry = "SELECT subjectID, subjectName, subjectDescription FROM subjects ORDER BY subjectName ASC";
 		$rs = $this->db->query($qry);
 		// if at least 1 record retrieved
-		if($rs->num_rows > 0) { 
+		if($rs->num_rows > 0) {
 			$subjects = array();
 			// numeric indexed array
 			while($row = $rs->fetch_assoc()) {
-				$subjects[] = $row;		
+				$subjects[] = $row;
 			}
 		}
 		 // no rows retrieved (the user has not made a purchase while logged in)
-		else { 
-//			echo "Error with getSubjects query"; 
+		else {
+//			echo "Error with getSubjects query";
 		}
 		return $subjects;
 	}
 
 
-	// counts the amount of products in the database, either 
+	// counts the amount of products in the database, either
 	// subject, artist, size, price or whole catalogue (ie all framed prints)
 	// $type = the filter eg subject/artist/size etc
 	// $value = the value for that search ie "abstract"
@@ -460,23 +459,23 @@ class Dbase
 			// public so show retail prices
 			else {
 				$qry = "SELECT art.artID, artistName, artists.artistID, artImage, artDescription, artImage, artName, sizeRRP, sizeWSP, sizeWidth, sizeHeight FROM `sizePrices` left join `art` ON art.artID = sizePrices.artID left join `artists` ON art.artistID = artists.artistID WHERE artHiddenDate = '' and artistHidden = '' AND artType = '$format' AND sizeRRP > $min AND sizeRRP < $max ORDER BY artName DESC";
-			}		
+			}
 		}
 
 		// else if main catalogue page, value = framed/prints/canvas
 		else if ($type == 'catalogue') {
 			$qry = "SELECT artID FROM `art` left join `artists` ON art.artistID = artists.artistID WHERE  artHiddenDate = '' and artistHidden = '' and artType = '$value'";
 		}
-		$rs = $this->db->query($qry);	
+		$rs = $this->db->query($qry);
 		//	test if query is successful
-		if ($rs) {	
+		if ($rs) {
 			//	if a record is retrieved
 			$allProducts = array();
 			if ($type == 'price' || $type == 'size') {
-				if($rs->num_rows > 0) {   
+				if($rs->num_rows > 0) {
 					while($row = $rs->fetch_assoc()) {
 						// numeric indexed array
-						$allProducts[] = $row;	
+						$allProducts[] = $row;
 				    }
 					if (is_array($allProducts)) {
 			    		$products = array();
@@ -511,10 +510,10 @@ class Dbase
 				    }
 				}
 			}
-			else if ($type != 'price' && $rs->num_rows > 0) {	
+			else if ($type != 'price' && $rs->num_rows > 0) {
 				while($row = $rs->fetch_assoc()) {
 					// numeric indexed array
-					$allProducts[] = $row;	
+					$allProducts[] = $row;
 				}
 				$products['artCount'] = 0;
 				foreach ($allProducts as $product) {
@@ -524,9 +523,9 @@ class Dbase
 					}
 				}
 				return $products['artCount'];
-			}	
+			}
 			//	no row retrieved
-			else {			
+			else {
 //				echo "No products found";
 			}
 		}
@@ -534,7 +533,7 @@ class Dbase
 		else {
 //			echo "Error executing query".$qry;
 		}
-		return false; 
+		return false;
 	}
 
 
@@ -559,10 +558,10 @@ class Dbase
 		// for search
 		else if (isset($_GET['search'])) {
 			$search = $_GET['search'];
-			if (!get_magic_quotes_gpc()) {		
+			if (!get_magic_quotes_gpc()) {
 				// if magic_quotes isn't on then sanitise so doesn't break query
 				$search = $this->db->real_escape_string($search);
-			}	
+			}
 			$search = strip_tags($search);
 			$search = trim($search);
 			$qry = "SELECT artID, art.artistID, artName, artDescription, artImage, artType, artKeywords, artistName, artHiddenDate, artistHidden FROM `art` left join `artists` ON art.artistID = artists.artistID WHERE artHiddenDate = '' AND artistHidden = '' AND artName LIKE '%$search%' OR artDescription LIKE '%$search%' OR artKeywords LIKE '%$search%' OR artistName LIKE '%$search%' ORDER BY artUpdateDate DESC LIMIT $start, $limit";
@@ -601,14 +600,14 @@ class Dbase
 			$qry = "SELECT art.artID, artistName, artists.artistID, artImage, artDescription, artImage, artName, sizeWidth, sizeHeight, artHiddenDate, artistHidden FROM `sizePrices` left join `art` ON art.artID = sizePrices.artID left join `artists` ON art.artistID = artists.artistID WHERE artHiddenDate = '' and artistHidden = '' AND artType = '$type' ORDER BY artUpdateDate DESC";
 		}
 //		echo 'qry = '.$qry.'<br />';
-		$rs = $this->db->query($qry);  
+		$rs = $this->db->query($qry);
 		if($rs) {
 			// if at least 1 record retrieved
-			if($rs->num_rows > 0) {  
+			if($rs->num_rows > 0) {
 				$allProducts = array();
 				while($row = $rs->fetch_assoc()) {
 					// numeric indexed array
-					$allProducts[] = $row;	
+					$allProducts[] = $row;
 					if (is_array($allProducts)) {
 			    		$products = array();
 			    		if ($filter == 'price') {
@@ -649,14 +648,14 @@ class Dbase
 			}
 			// unlikely except in development
 			else {
-				$allProducts = "No matches"; 
+				$allProducts = "No matches";
 			}
 			if($filter == 'price' || $filter == 'size') {
-				$pagination = $shopNum - 1;	
+				$pagination = $shopNum - 1;
 				$num = count($products);
 				if ($num != 0) {
 					if (is_array($products)) {
-						$products = array_chunk($products, $limit);	
+						$products = array_chunk($products, $limit);
 						$products = $products[$pagination];
 					}
 				}
@@ -668,9 +667,9 @@ class Dbase
 			return $allProducts;
 		}
 		// error executing query  (development only)
-		else {  
-//			 echo "Error finding products"; 
-		}	
+		else {
+//			 echo "Error finding products";
+		}
 		return false;
 	}
 
@@ -686,26 +685,26 @@ class Dbase
 		else {
 			$qry = "SELECT artID, sizeId, APCode, sizeWidth, sizeHeight, sizeRRP, sizeWSP, sizeRoyalty FROM `sizePrices` WHERE sizePrices.artID = $artID";
 		}
-		$rs = $this->db->query($qry);  
+		$rs = $this->db->query($qry);
 		if($rs) {
 			// if at least 1 record retrieved
-			if($rs->num_rows > 0) {   
+			if($rs->num_rows > 0) {
 				$sizes = array();
 				while($row = $rs->fetch_assoc()) {
 					// numeric indexed array
-					$sizes[] = $row;		
+					$sizes[] = $row;
 				}
 			}
 			// unlikely except in development
 			else {
-				$sizes = "no matches"; 
+				$sizes = "no matches";
 			}
-//			echo $qry.'<br />';	
+//			echo $qry.'<br />';
 			return $sizes;
 		}
 		// error executing query  (development only)
-		else {  
-//			 echo "Error finding sizes"; 
+		else {
+//			 echo "Error finding sizes";
 		}
 		return false;
 	}
@@ -718,18 +717,18 @@ class Dbase
 			$artName = $this->db->real_escape_string($artName);
 		}
 		$qry = "SELECT artID, artDescription, artImage, artType FROM `art` WHERE artistID = $artistID and artName = '$artName' and artHiddenDate = ''";
-		$rs = $this->db->query($qry);  
+		$rs = $this->db->query($qry);
 		// check result returned and put all info into $types array
-		if($rs && $rs->num_rows > 0) {   
+		if($rs && $rs->num_rows > 0) {
 			$types = array();
 			while($row = $rs->fetch_assoc()) {
 				// numeric indexed array
-				$types[] = $row;		
+				$types[] = $row;
 			}
 		}
 		// no matches
 		else {
-			$types = "No matches"; 
+			$types = "No matches";
 		}
 		return $types;
 	}
@@ -743,38 +742,38 @@ class Dbase
 		else {
 			$qry = "SELECT artID, art.artistID, artName, artDescription, artKeywords, artImage, artType, artistName, artistBio, artHiddenDate FROM `art` left join `artists` ON art.artistID = artists.artistID WHERE artID = $productID and artHiddenDate = ''";
 		}
-		$rs = $this->db->query($qry);  
+		$rs = $this->db->query($qry);
 		// check result returned and put all info into $product array
-		if($rs && $rs->num_rows > 0) {   
+		if($rs && $rs->num_rows > 0) {
 			$product = array();
 			while($row = $rs->fetch_assoc()) {
 				// numeric indexed array
-				$product[] = $row;		
+				$product[] = $row;
 			}
 		}
 		// no matches
 		else {
-			$product = "No matches".$qry; 
+			$product = "No matches".$qry;
 		}
 		return $product;
 	}
 
-	
+
 	// this function collects the subjects for a particular art id
 	public function getSubjectsByArtID($id) {
 		$qry = "SELECT artSubID, subjectID, artID FROM `artSubjects` WHERE artID = $id";
-		$rs = $this->db->query($qry);  
+		$rs = $this->db->query($qry);
 		// check result returned and put all info into $types array
-		if($rs && $rs->num_rows > 0) {   
+		if($rs && $rs->num_rows > 0) {
 			$subjects = array();
 			while($row = $rs->fetch_assoc()) {
 				// numeric indexed array
-				$subjects[] = $row;		
+				$subjects[] = $row;
 			}
 		}
 		// no matches
 		else {
-			$subjects = "No matches"; 
+			$subjects = "No matches";
 		}
 		return $subjects;
 	}
@@ -819,7 +818,7 @@ class Dbase
 		}
 		// adding
 		else {
-			$qry = "INSERT INTO art (artistID, artName, artDescription, artType, artKeywords, artCreatedBy, artCreationDate, artHiddenDate) 
+			$qry = "INSERT INTO art (artistID, artName, artDescription, artType, artKeywords, artCreatedBy, artCreationDate, artHiddenDate)
 			VALUES ($artistID, '$art_name', '$art_description', '$art_type', '$art_keywords', '$name', NULL, '$hidden')";
 		}
 		$rs = $this->db->query($qry);
@@ -829,7 +828,7 @@ class Dbase
 		else {
 			if ($this->db->affected_rows > 0) {
 				if (!$id) {
-					$id = $this->db->insert_id; 
+					$id = $this->db->insert_id;
 					return $id;
 				}
 				return $id;
@@ -856,8 +855,8 @@ class Dbase
 		}
 		// error with query (development only)
 		else {
-//			echo 'Error deleting art/subject entry '.$qry; 
-		}	
+//			echo 'Error deleting art/subject entry '.$qry;
+		}
 	}
 
 
@@ -931,22 +930,22 @@ class Dbase
 		$rs = $this->db->query($qry);
 		if($rs) {
 			// if at least 1 record retrieved
-			if($rs->num_rows > 0) {   
+			if($rs->num_rows > 0) {
 				$accounts = array();
 				// numeric indexed array
 				while($row = $rs->fetch_assoc()) {
-					$accounts[] = $row;		
+					$accounts[] = $row;
 				}
 			}
 			 // no rows retrieved (the user has not made a purchase while logged in)
-			else { 
-				$accounts = 'no new accounts'; 
+			else {
+				$accounts = 'no new accounts';
 			}
 		}
 		 // error executing query (development only)
-		else { 
-//			echo "Error with new account query" . $qry; 
-		}	
+		else {
+//			echo "Error with new account query" . $qry;
+		}
 		return $accounts;
 	}
 
@@ -966,7 +965,7 @@ class Dbase
 		$qry = "UPDATE customers SET custStatus = '$status' WHERE custID = $custID";
 		$rs = $this->db->query($qry);
 		if (!$rs) {
-//			echo 'Query error! '. $qry; 
+//			echo 'Query error! '. $qry;
 		}
 		else {
 			if ($this->db->affected_rows > 0) {
@@ -976,7 +975,7 @@ class Dbase
 					$subject = 'Your Artprints account has been activated!';
 					$headers .= 'CC: nzartprints@gmail.com'."\n";
 					$headers .= 'BCC: julialarsen.nz@gmail.com'."\n";
-					$headers .= 'From: nzartprints@gmail.com'."\n";
+					$headers .= 'From: noreply@artprints.kiwi.nz'."\n";
 					$headers .= 'MIME-Version: 1.0'."\n";
 					$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 					$message = '<html><body>';
@@ -994,17 +993,17 @@ class Dbase
 					$message = stripslashes($message);
 					// The email worked
 					if (mail($to, $subject, $message, $headers)) {
-					} 
-				} 
+					}
+				}
 				return true;
 			}
 			else {
 				return false;
 			}
-		} 
+		}
 	}
 
-	
+
 	/* ---------------------------------------------------------------------- */
 	/* -------------------------------- banners ----------------------------- */
 	/* ---------------------------------------------------------------------- */
@@ -1026,15 +1025,15 @@ class Dbase
 			$qry = "SELECT bannerID, bannerName, bannerAlt, bannerLink, bannerVisibility FROM banners ORDER BY bannerUpdated DESC";
 		}
 		$rs = $this->db->query($qry);
-		if($rs->num_rows > 0) {   
+		if($rs->num_rows > 0) {
 			$banners = array();
 			// numeric indexed array
 			while($row = $rs->fetch_assoc()) {
-				$banners[] = $row;		
+				$banners[] = $row;
 			}
 		}
 		// no rows retrieved (error)
-		else { 
+		else {
 //			echo 'no banners';
 		}
 		return $banners;
@@ -1057,14 +1056,14 @@ class Dbase
 			$qry = "UPDATE banners SET bannerAlt = '$alt', bannerLink = '$link', bannerVisibility = '$visibility', bannerUpdated = NULL WHERE bannerID = $banner_id";
 		}
 		$rs = $this->db->query($qry);
-		if($this->db->affected_rows > 0) {   
+		if($this->db->affected_rows > 0) {
 			$edit = true;
 			if ($name != '') {
-				$edit = $this->db->insert_id;	
+				$edit = $this->db->insert_id;
 			}
 		}
 		// no rows retrieved (error)
-		else { 
+		else {
 			$edit = false;
 		}
 		return $edit;
@@ -1087,15 +1086,15 @@ class Dbase
 		extract($_POST);
 		$total = $_SESSION['total'];
 		$shipping = $_SESSION['shipping'];
-		$qry = "INSERT INTO orders VALUES (NULL, $custID, '$purchase_order', '$first_name', '$last_name', '$delivery_address', '$delivery_suburb', '$delivery_city', $delivery_postcode, 'New Zealand', '$first_name', '$last_name', '$billing_address', '$billing_suburb', '$billing_city', $billing_postcode, 'New Zealand', '', $orderValue, $shipping, $orderGSTValue, $total, '', $total, NULL, 'approved', 'pending', NULL, '', '', $quantity, '$notes')";	
+		$qry = "INSERT INTO orders VALUES (NULL, $custID, '$purchase_order', '$first_name', '$last_name', '$delivery_address', '$delivery_suburb', '$delivery_city', $delivery_postcode, 'New Zealand', '$first_name', '$last_name', '$billing_address', '$billing_suburb', '$billing_city', $billing_postcode, 'New Zealand', '', $orderValue, $shipping, $orderGSTValue, $total, '', $total, NULL, 'approved', 'pending', NULL, '', '', $quantity, '$notes')";
 		$rs = $this->db->query($qry);
 		if ($rs) {
 			if ($this->db->affected_rows > 0) {
 				// get the ID generated
-				$orderID = $this->db->insert_id;	
+				$orderID = $this->db->insert_id;
 				$qry1 = "INSERT INTO orderedArt VALUES ";
 				// get the number of items in the cart
-				$itemCnt = count($_SESSION['cart']);	
+				$itemCnt = count($_SESSION['cart']);
 				$i = 0;
 				// foreach product insert into orderedprods the item
 				foreach($_SESSION['cart'] as $product) {
@@ -1115,8 +1114,8 @@ class Dbase
 					if ($shipping > 50) {
 						$to = 'nzartprints@gmail.com';
 						$subject = 'Order with expensive shipping!';
-						$headers = 'BCC: niki@afas.co.nz'."\n";
-						$headers .= 'From: nzartprints@gmail.com'."\n";
+						$headers = 'BCC: nzartprints@gmail.com'."\n";
+						$headers .= 'From: noreply@artprints.kiwi.nz'."\n";
 						$headers .= 'MIME-Version: 1.0'."\n";
 						$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 						$message = '<html><body>';
@@ -1132,7 +1131,7 @@ class Dbase
 						$message .= '<p>Order Number: '.$orderID.'</p>';
 						$message .= '</body></html>';
 						@mail($to, $subject, $message, $headers);
-					} 
+					}
 					unset($_SESSION['cart'], $_SESSION['shipping'], $_SESSION['total']);
 					return $orderID;
 				}
@@ -1144,12 +1143,12 @@ class Dbase
 			// unlikely except in development
 			else {
 //				echo 'No order record created!';
-			}	
+			}
 		}
 		// error with qry - unlikely except in developement
 		else {
 //			echo 'Error executing order query'.$qry;
-		} 
+		}
 	}
 
 
@@ -1161,7 +1160,7 @@ class Dbase
 		$customer = $this->collectCustomer($custID);
 		$deposit = ($orderTotalValue / 100) * $_SESSION['deposit'];
 
-		// table heading 	
+		// table heading
 		$html = '<table style="border: solid 1px #465B8C" cellpadding="8">'."\n";
 		$html .= '<tr>'."\n";
 		$html .= '<th>Qty</th>'."\n";
@@ -1194,8 +1193,8 @@ class Dbase
 		$to = $_SESSION['email'];
 		$subject = 'Confirmation of your Artprints Order';
 		$headers = 'CC: nzartprints@gmail.com'."\n";
-		$headers .= 'BCC: niki@afas.co.nz'."\n";
-		$headers .= 'From: nzartprints@gmail.com'."\n";
+		$headers .= 'BCC: nzartprints@gmail.com'."\n";
+		$headers .= 'From: noreply@artprints.kiwi.nz'."\n";
 		$headers .= 'MIME-Version: 1.0'."\n";
 		$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 		$message = '<html"><body>';
@@ -1203,7 +1202,7 @@ class Dbase
 		$message .= '<h4>Hi '.$_SESSION['name'].',</h4>'."\n";
 		$message .= '<p>Thank you for your Artprints order for '.$_SESSION['company'].'. Before your order is dispatched, we required a '.$_SESSION['deposit'].'% desposit. The remaining balance of your order is due by the 20th of next month.  You can log in to your account and view your order status/details anytime on <a href="http://www.artprints.kiwi.nz/index.php?page=account">\'your account\' page.</a> And of course, we\'re only an email away if you\'d like to get in <a href="http://www.artprints.kiwi.nz/index.php?page=contact">contact </a>with us regarding your order.</p>';
 		$message .= '<h2>Tax Invoice</h2>'."\n";
-		
+
 		// table for supplier, gst, order numb and date issued
 		$message .= '<table>'."\n";
 			$message .= '<tr>'."\n";
@@ -1223,7 +1222,7 @@ class Dbase
 				$message .= '<td>'.date('j M y').'</td>'."\n";
 			$message .= '</tr>'."\n";
 		$message .= '</table>'."\n";
-		
+
 		// order details
 		$message .= '<h3>Your Details:</h3>'."\n";
 		$message .= '<table>'."\n";
@@ -1244,7 +1243,7 @@ class Dbase
 				$message .= '<td>'.$orderNotes.'</td>'."\n";
 			$message .= '</tr>'."\n";
 		$message .= '</table>'."\n";
-		
+
 		// deliver and billing addresses
 		$message .= '<table style="margin-top: 10px;">'."\n";
 			$message .= '<tr>'."\n";
@@ -1295,7 +1294,7 @@ class Dbase
 				$message .= '<td><strong>Grand Total:</strong></td>'."\n";
 				$message .= '<td>$'.sprintf("%01.2f", $orderTotalValue).' NZD</td>'."\n";
 			$message .= '</tr>'."\n";
-			
+
 			$message .= '<tr style="color: red;">'."\n";
 				$message .= '<td><strong>Deposit Due Immediately:</strong></td>'."\n";
 				$message .= '<td> $'.sprintf("%01.2f", $deposit).' NZD</td>'."\n";
@@ -1318,7 +1317,7 @@ class Dbase
 	/* ------------------------------ orders  ------------------------------- */
 	/* ---------------------------------------------------------------------- */
 
-	
+
 	// this function gets all the orders particular customer if $id provided
 	// or the order matching a provided $orderID
 	public function getPastOrders($id='', $orderID='') {
@@ -1331,22 +1330,22 @@ class Dbase
 		$rs = $this->db->query($qry);
 		if($rs) {
 			// if at least 1 record retrieved
-			if($rs->num_rows > 0) {   
+			if($rs->num_rows > 0) {
 				$orders = array();
 				// numeric indexed array
 				while($row = $rs->fetch_assoc()) {
-					$orders[] = $row;		
+					$orders[] = $row;
 				}
 			}
 			 // no rows retrieved (the user has not made a purchase while logged in)
-			else { 
-				$orders = 'no orders'; 
+			else {
+				$orders = 'no orders';
 			}
 		}
 		 // error executing query (development only)
-		else { 
-	//		echo "Error with getPrevious Order query"; 
-		}	
+		else {
+	//		echo "Error with getPrevious Order query";
+		}
 		return $orders;
 	}
 
@@ -1379,26 +1378,26 @@ class Dbase
 			$year = $_POST['year'];
 			$date = $year.'-'.$month;
 			$qry = "SELECT orderID, custID, orderPurcNum, orderDelFirstName, orderDelLastName, orderDelAddress, orderDelSuburb, orderDelCity, orderDelPostcode, orderDelCountry, orderBillFirstName, orderBillLastName, orderBillAddress, orderBillSuburb, orderBillCity, orderBillPostcode, orderBillCountry, orderReceiptNum, orderValue, orderShipValue, orderGSTValue, orderTotalValue, orderPaymentRec, orderBalance, UNIX_TIMESTAMP(orderDate) AS orderDate, orderStatus, orderDelStatus, UNIX_TIMESTAMP(orderDispatchDate) AS orderDispatchDate, orderInvoiceRef, orderQty, orderCourierNum, orderNotes FROM orders WHERE orderDate LIKE '$date%' ORDER BY orderDispatchDate DESC";
-		}	
+		}
 		$rs = $this->db->query($qry);
 		if($rs) {
 			// if at least 1 record retrieved
-			if($rs->num_rows > 0) {   
+			if($rs->num_rows > 0) {
 				$orders = array();
 				// numeric indexed array
 				while($row = $rs->fetch_assoc()) {
-					$orders[] = $row;		
+					$orders[] = $row;
 				}
 			}
 			 // no rows retrieved (the user has not made a purchase while logged in)
-			else { 
-				$orders = 'no orders'; 
+			else {
+				$orders = 'no orders';
 			}
 		}
 		 // error executing query (development only)
-		else { 
-//			echo "Error with get Order query"; 
-		}	
+		else {
+//			echo "Error with get Order query";
+		}
 		return $orders;
 	}
 
@@ -1409,22 +1408,22 @@ class Dbase
 		$rs = $this->db->query($qry);
 		if($rs) {
 			// if at least 1 record retrieved
-			if($rs->num_rows > 0) {   
+			if($rs->num_rows > 0) {
 				$items = array();
 				// numeric indexed array
 				while($row = $rs->fetch_assoc()) {
-					$items[] = $row;		
+					$items[] = $row;
 				}
 			}
 			 // no rows retrieved (the user has not made a purchase while logged in)
-			else { 
-				$items = 'no orders'; 
+			else {
+				$items = 'no orders';
 			}
 		}
 		 // error executing query (development only)
-		else { 
-//			echo "Error with getOrderItems query" . $qry; 
-		}	
+		else {
+//			echo "Error with getOrderItems query" . $qry;
+		}
 		return $items;
 	}
 
@@ -1449,7 +1448,7 @@ class Dbase
 			$shipping = str_replace ('$' ,'' , $shipping);
 			$orderGST = ($shipping + $orderValue) / 100;
 			$orderGST = $orderGST * 15;
-			$orderTotal = $shipping + $orderValue + $orderGST; 
+			$orderTotal = $shipping + $orderValue + $orderGST;
 			$balance = $orderTotal - $payment;
 			if ($delivery_status == 'dispatched') {
 				$delStatus = $this->getPastOrders('', $order_id);
@@ -1467,7 +1466,7 @@ class Dbase
 			}
 			$rs = $this->db->query($qry);
 			if (!$rs) {
-//				echo 'Query error! '. $qry; 
+//				echo 'Query error! '. $qry;
 			}
 			else {
 				if ($this->db->affected_rows > 0) {
@@ -1494,8 +1493,8 @@ class Dbase
 		$to = $custEmail;
 		$subject = 'Your Artprints Order Has Been Dispatched!';
 		$headers = 'CC: nzartprints@gmail.com'."\n";
-		$headers .= 'BCC: niki@afas.co.nz'."\n";
-		$headers .= 'From: nzartprints@gmail.com'."\n";
+		$headers .= 'BCC: nzartprints@gmail.com'."\n";
+		$headers .= 'From: noreply@artprints.kiwi.nz'."\n";
 		$headers .= 'MIME-Version: 1.0'."\n";
 		$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 		$message = '<html><body>';
@@ -1517,9 +1516,9 @@ class Dbase
 			$message .= '<tr>'."\n";
 				$message .= '<td><strong>GST:</strong></td>'."\n";
 				$message .= '<td>84-030-244</td>'."\n";
-			$message .= '</tr>'."\n";	
+			$message .= '</tr>'."\n";
 		$message .= '</table>'."\n";
-		
+
 		// order details
 		$message .= '<h3>Your Details:</h3>'."\n";
 		$message .= '<table>'."\n";
@@ -1542,7 +1541,7 @@ class Dbase
 			$message .= '<tr>'."\n";
 				$message .= '<td><strong>Dispatched:</strong></td>'."\n";
 				$message .= '<td>'.date('j M y').'</td>'."\n";
-			$message .= '</tr>'."\n";	
+			$message .= '</tr>'."\n";
 			$message .= '<tr>'."\n";
 				$message .= '<td><strong>Courier Tracking #:</strong></td>'."\n";
 				$message .= '<td>'.$_POST['courier'].'</td>'."\n";
@@ -1552,7 +1551,7 @@ class Dbase
 				$message .= '<td>'.$_POST['notes'].'</td>'."\n";
 			$message .= '</tr>'."\n";
 		$message .= '</table>'."\n";
-		
+
 		$message .= '<h3>Order Details:</h3>'."\n";
 		$html = '<table style="border: solid 1px #465B8C" cellpadding="8">'."\n";
 		$html .= '<tr>'."\n";
@@ -1582,8 +1581,8 @@ class Dbase
 			$html .= '</tr>'."\n";
 		}
 		$html .= '</table>'."\n";
-		$message .= $html;	
-		
+		$message .= $html;
+
 		$balance = ($orderTotalValue - $_POST['payment']);
 		$currentMonth = date('M y');
 		$nextMonth = strtotime(date("M y", strtotime($currentMonth)) . "+1 month");
@@ -1607,7 +1606,7 @@ class Dbase
 				$message .= '<td><strong>Grand Total:</strong></td>'."\n";
 				$message .= '<td>$'.sprintf("%01.2f", $orderTotalValue).' NZD</td>'."\n";
 			$message .= '</tr>'."\n";
-			
+
 			$message .= '<tr style="color: red;">'."\n";
 				$message .= '<td><strong>Balance Due by 20 '.$nextMonth.':</strong></td>'."\n";
 				$message .= '<td> $'.sprintf("%01.2f", $balance).' NZD</td>'."\n";
@@ -1648,29 +1647,29 @@ class Dbase
 			$year = $_POST['year'];
 			$date = $year.'-'.$month;
 			$qry = "SELECT ordArtID, orderID, artID, APCode, sizeWidth, sizeHeight, sizePrice, orderProdQty, artType, orderedArtStatus, UNIX_TIMESTAMP(dateDispatched) AS dateDispatched, artistID, sizeID, royaltyAmount, royaltyPaymentID FROM orderedArt WHERE dateDispatched LIKE '$date%'";
-		}	
+		}
 		else {
 			$qry = "SELECT ordArtID, orderID, artID, APCode, sizeWidth, sizeHeight, sizePrice, orderProdQty, artType, orderedArtStatus, UNIX_TIMESTAMP(dateDispatched) AS dateDispatched, artistID, sizeID, royaltyAmount, royaltyPaymentID from orderedArt WHERE orderedArtStatus = 'dispatched'";
 		}
 		$rs = $this->db->query($qry);
 		if($rs) {
 			// if at least 1 record retrieved
-			if($rs->num_rows > 0) {   
+			if($rs->num_rows > 0) {
 				$items = array();
 				// numeric indexed array
 				while($row = $rs->fetch_assoc()) {
-					$items[] = $row;		
+					$items[] = $row;
 				}
 			}
-			 // no rows retrieved 
-			else { 
-				$items = 'no dispatched items'; 
+			 // no rows retrieved
+			else {
+				$items = 'no dispatched items';
 			}
 		}
 		 // error executing query (development only)
-		else { 
-//			echo "Error with getDispatched Art query" . $qry; 
-		}	
+		else {
+//			echo "Error with getDispatched Art query" . $qry;
+		}
 		return $items;
 	}
 
@@ -1682,22 +1681,22 @@ class Dbase
 		$rs = $this->db->query($qry);
 		if($rs) {
 			// if at least 1 record retrieved
-			if($rs->num_rows > 0) {   
+			if($rs->num_rows > 0) {
 				$payments = array();
 				// numeric indexed array
 				while($row = $rs->fetch_assoc()) {
-					$payments[] = $row;		
+					$payments[] = $row;
 				}
 			}
 			 // no rows retrieved (the user has not made a purchase while logged in)
-			else { 
-				$payments = '0'; 
+			else {
+				$payments = '0';
 			}
 		}
 		 // error executing query (development only)
-		else { 
-//			echo "Error with royalties paid query" . $qry; 
-		}	
+		else {
+//			echo "Error with royalties paid query" . $qry;
+		}
 		return $payments;
 	}
 
@@ -1710,7 +1709,7 @@ class Dbase
 		}
 		extract($_POST);
 		$payment = str_replace ('$' ,'' , $payment);
-		$qry = "INSERT INTO royaltyPayments VALUES (NULL, $artistID, $payment, NULL, '$notes')";	
+		$qry = "INSERT INTO royaltyPayments VALUES (NULL, $artistID, $payment, NULL, '$notes')";
 		$rs = $this->db->query($qry);
 		if ($rs) {
 			if ($this->db->affected_rows > 0) {
@@ -1721,12 +1720,12 @@ class Dbase
 			else {
 //				echo 'Error executing record Royalty Payment'.$qry;
 			}
-			// unlikely except in development	
+			// unlikely except in development
 		}
 		// error with qry - unlikely except in developement
 		else {
 //			echo 'Error executing record Royalty Payment'.$qry;
-		} 
+		}
 	}
 }
 ?>

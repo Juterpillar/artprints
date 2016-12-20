@@ -224,7 +224,7 @@ class Dbase
 						$headers .= 'Content-Type: text/html; charset=ISO-8859-1'."\n";
 						$message = '<html><body>';
 						$message .= '<img src="http://www.artprints.kiwi.nz/images/logo_desktop.jpg" alt="Artprints: Publishers and Distributors" />'."\n";
-						$message .= '<p>Your Artprints account password has been reset to \''.$reset.'\'.  Simply go to <a href="http://www.artprints.kiwi.nz/index.php?page=login">www.artprints.kiwi.nz</a> to log in using your reset password.  Once you are logged in you can change your password on <a href="http://www.artprints.kiwi.nz/index.php?page=account">your account </a>page. And of course, we\'re only an email away if you\'d like to get in <a href="http://www.artprints.kiwi.nz/index.php?page=contact">contact </a>with us.</p>'."\n";
+						$message .= '<p>Your Artprints account password has been reset.  Simply go to <a href="http://www.artprints.kiwi.nz/index.php?page=login">www.artprints.kiwi.nz</a> to log in using your reset password.  Once you are logged in you can change your password on <a href="http://www.artprints.kiwi.nz/index.php?page=account">your account </a>page. And of course, we\'re only an email away if you\'d like to get in <a href="http://www.artprints.kiwi.nz/index.php?page=contact">contact </a>with us.</p>'."\n";
 						$message .= '<p>Happy shopping from the team at Artprints!</p>'."\n";
 						$message .= '<img src="http://www.artprints.kiwi.nz/images/banners/mobile_artprints_team.jpg" />'."\n";
 						$message .= "</body></html>";

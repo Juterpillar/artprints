@@ -351,7 +351,7 @@ abstract class View
 		$html .= "\t\t\t\t".'</ul>'."\n";
 		$html .= "\t\t\t\t".'<p>&copy; Artprints Ltd. 2013</p>'."\n";
 		$html .= "\t\t\t\t".'<p>web design &amp; development by <a href="http://www.linkedin.com/profile/view?id=195939285&amp;trk=tab_pro" target="_blank">Julia Larsen</a></p>'."\n";
-		$html .= "\t\t\t\t".'<p class="no_mobile">background image by Adele Souster.  All rights reserved.</p>'."\n";
+		$html .= "\t\t\t\t".'<p class="no_mobile">All rights reserved.</p>'."\n";
 		$html .= "\t\t\t".'</footer>'."\n";
 		$html .= "\t\t".'</div> <!-- wrapper -->'."\n";
 		$html .= "\t".'</div> <!-- container -->'."\n";

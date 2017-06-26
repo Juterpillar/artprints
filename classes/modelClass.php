@@ -19,7 +19,7 @@ class Model extends Dbase
 
 	public function __construct() {
 		// call the constructor function of the Dbase class
-		parent::__construct();   
+		parent::__construct();
 		$validationPages = array('register', 'login', 'checkout', 'adminartist', 'adminartwork', 'order', 'contact', 'account', 'royalty');
 		if (in_array($_GET['page'], $validationPages)) {
 			include 'classes/validateClass.php';
@@ -32,7 +32,7 @@ class Model extends Dbase
 	// then displays it in the provided id for the div
 	// it is used on many pages including home, about, product etc
 	public function textTo2Cols($string, $heading='', $divID='') {
-		$sentences = explode(".", $string); 
+		$sentences = explode(".", $string);
 		$numSentences = count($sentences);
 		$sentencesPerCol = floor($numSentences / 2);
 		$numSentences = $numSentences - 1;
@@ -180,7 +180,7 @@ class Model extends Dbase
 	// $bottom 			= is set to true if showing the page links underneath the products displayed
 	// $type 			= either framed/canvas/prints
 	// returns the pagination for the products
-	public function displayPageLinks($count, $prodPerPage, $catNum, $url, $bottom='', $type='') {	
+	public function displayPageLinks($count, $prodPerPage, $catNum, $url, $bottom='', $type='') {
 		// if pagination at the bottom of the page add the div
 		$html = '';
 		if ($bottom) {
@@ -219,7 +219,7 @@ class Model extends Dbase
 			// there are pages before this one so show 'previous' link
 			else {
 				$html .= "\t\t\t\t\t\t".'<h4 class="pagination"><a href="index.php?page='.$url.'&amp;catNum='.($catNum - 1).'"><i class="icon-circle-arrow-left"></i> previous  </a>'."\n";
-			}	
+			}
 			// if the amount of products divides evenly into the limit of products shown per page
 			if ($count % $prodPerPage == 0) {
 				$totalPages = $count / $prodPerPage;
@@ -319,7 +319,7 @@ class Model extends Dbase
 		    	$min = 750;
 	        	$max = 1100;
 		     break;
-		    // large 
+		    // large
 		    case 'large':
 		    	$min = 1101;
 	        	$max = 1601;
@@ -359,7 +359,7 @@ class Model extends Dbase
 		$result['delivery_postcode'] = $this->validate->checkNumeric($delivery_postcode);
 		$result['island'] = $this->validate->checkSelect($island);
 		$result['password'] = $this->validate->checkPassword($password);
-		$result['password1'] = $this->validate->checkPasswordMatch($password, $password1);		
+		$result['password1'] = $this->validate->checkPasswordMatch($password, $password1);
 		$result['agree'] = $this->validate->checkChecked($agree);
 		$result['ok'] = $this->validate->checkErrorMessages($result);
 		return $result;
@@ -378,7 +378,7 @@ class Model extends Dbase
 	public function processLogin() {
 		extract($_POST);
 		$result['email'] = $this->validate->checkEmail($email);
-		$result['password'] = $this->validate->checkPassword($password);		
+		$result['password'] = $this->validate->checkPassword($password);
 		$result['ok'] = $this->validate->checkErrorMessages($result);
 		// check if validation ok
 		if ($result['ok']) {
@@ -405,17 +405,17 @@ class Model extends Dbase
 					$_SESSION['delPostcode'] = $result['custDelPostcode'];
 					$_SESSION['delCountry'] = $result['custDelCountry'];
 					$_SESSION['phone'] = $result['custPhone'];
-					$_SESSION['email'] = $result['custEmail'];	
+					$_SESSION['email'] = $result['custEmail'];
 					$_SESSION['billAddress'] = $result['custBillAddress'];
 					$_SESSION['billSuburb'] = $result['custBillSuburb'];
 					$_SESSION['billCity'] = $result['custBillCity'];
 					$_SESSION['billPostcode'] = $result['custBillPostcode'];
 					$_SESSION['billCountry'] = $result['custBillCountry'];
-					$_SESSION['deposit'] = $result['custDeposit'];	
-					$_SESSION['status'] = $result['custStatus'];	
-					$_SESSION['island1'] = $result['custDelIsland'];	
-					$_SESSION['notes'] = $result['custNotes'];	
-					$_SESSION['credit'] = $result['custCreditLimit'];	
+					$_SESSION['deposit'] = $result['custDeposit'];
+					$_SESSION['status'] = $result['custStatus'];
+					$_SESSION['island1'] = $result['custDelIsland'];
+					$_SESSION['notes'] = $result['custNotes'];
+					$_SESSION['credit'] = $result['custCreditLimit'];
 				}
 			}
 		}
@@ -425,7 +425,7 @@ class Model extends Dbase
 
 	// logs user out by unsetting session variables
 	public function logout() {
-		unset($_SESSION['custID']);		
+		unset($_SESSION['custID']);
 		unset($_SESSION['name']);
 		unset($_SESSION['company']);
 		unset($_SESSION['access']);
@@ -447,7 +447,7 @@ class Model extends Dbase
 		unset($_SESSION['notes']);
 		unset($_SESSION['credit']);
 		session_destroy();
-	}  
+	}
 
 
 	// calculates cust limit, balance and credit available
@@ -549,7 +549,7 @@ class Model extends Dbase
 			$html .= "\t\t\t\t\t\t\t\t".'<th></th>'."\n";
 			$html .= "\t\t\t\t\t\t\t".'</tr>'."\n";
 			foreach ($orders as $order) {
-				extract($order);	
+				extract($order);
 				$html .= "\t\t\t\t\t\t\t".'<tr>'."\n";
 				$html .= "\t\t\t\t\t\t\t\t".'<td>'.date('j M y', $orderDate).'</td>'."\n";
 				$html .= "\t\t\t\t\t\t\t\t".'<td>'.$orderQty.'</td>'."\n";
@@ -569,9 +569,9 @@ class Model extends Dbase
 		return $html;
 	}
 
-	
+
 	// this function collects all the customers from the db and returns them in a select box
-	// or 
+	// or
 	// displays all the months and years in 2 drop down boxes
 	// returns $html with the dropdown box of information
 	// $options 	= either 'customers' or 'months'
@@ -594,7 +594,7 @@ class Model extends Dbase
 				$html .= "\t\t\t\t\t\t\t".'<option value="'.$custID.':'.$custCompany.'">'.$custCompany.'</option>'."\n";
 			}
 			$html .= "\t\t\t\t\t\t".'</select>'."\n";
-			$html .= "\t\t\t\t\t\t".'<input type="submit" name="customer_select" value="select customer" />'."\n";		
+			$html .= "\t\t\t\t\t\t".'<input type="submit" name="customer_select" value="select customer" />'."\n";
 		}
 		// else choosing a date to display orders
 		else if ($options == 'months') {
@@ -647,7 +647,7 @@ class Model extends Dbase
 			$credit = str_replace ('$' ,'' , $credit);
 			$result['credit'] = $this->validate->checkNumeric($credit, true);
 		}
-		$result['password'] = $this->validate->checkPassword($password);	
+		$result['password'] = $this->validate->checkPassword($password);
 		$result['ok'] = $this->validate->checkErrorMessages($result);
 		if ($result['password'] == '' && $result['ok'] == 1) {
 			$identity = $this->getCustomer($_SESSION['email'], $password);
@@ -681,7 +681,7 @@ class Model extends Dbase
 		}
 		$result['password1'] = $this->validate->checkPassword($password1);
 		$result['password2'] = $this->validate->checkPasswordMatch($password1, $password2);
-		$result['ok'] = $this->validate->checkErrorMessages($result);	
+		$result['ok'] = $this->validate->checkErrorMessages($result);
 		return $result;
 	}
 
@@ -713,10 +713,10 @@ class Model extends Dbase
 			$html .= "\t\t\t\t\t\t\t".'<div class="checkout_item">'."\n";
 			$customer = $this->collectCustomer($custID);
 			$html .= "\t\t\t\t\t\t\t\t".'<p><strong>company<br />'."\n";
-			$html .= "\t\t\t\t\t\t\t\t".'date ordered<br />'."\n";  		
-			$html .= "\t\t\t\t\t\t\t\t".'delivery status<br />'."\n";  
-			$html .= "\t\t\t\t\t\t\t\t".'purchase order #<br />'."\n"; 
-			$html .= "\t\t\t\t\t\t\t\t".'courier tracking #<br />'."\n";  	
+			$html .= "\t\t\t\t\t\t\t\t".'date ordered<br />'."\n";
+			$html .= "\t\t\t\t\t\t\t\t".'delivery status<br />'."\n";
+			$html .= "\t\t\t\t\t\t\t\t".'purchase order #<br />'."\n";
+			$html .= "\t\t\t\t\t\t\t\t".'courier tracking #<br />'."\n";
 			$html .= "\t\t\t\t\t\t\t\t".'order notes<br /></strong></p>'."\n";
 			$html .= "\t\t\t\t\t\t\t\t".'<p><strong>'.$customer['custCompany'].'</strong><br/>'."\n";
 			$html .= "\t\t\t\t\t\t\t\t".date('j M y', $orderDate).'<br />'."\n";
@@ -734,7 +734,7 @@ class Model extends Dbase
 			$html .= "\t\t\t\t\t\t\t\t".$orderDelCity.', '.$orderDelPostcode.'</p>'."\n";
 			$html .= "\t\t\t\t\t\t\t".'</div>'."\n";
 			$html .= "\t\t\t\t\t\t\t".'<div class="checkout_item">'."\n";
-			$html .= "\t\t\t\t\t\t\t\t".'<p><strong>billing to:</strong></p>'."\n";	
+			$html .= "\t\t\t\t\t\t\t\t".'<p><strong>billing to:</strong></p>'."\n";
 			$html .= "\t\t\t\t\t\t\t\t".'<p>'.$orderBillFirstName.' '.$orderBillLastName.'<br/>'."\n";
 			$html .= "\t\t\t\t\t\t\t\t".$orderBillAddress.'<br />'."\n";
 			$html .= "\t\t\t\t\t\t\t\t".$orderBillSuburb.'<br />'."\n";
@@ -776,11 +776,11 @@ class Model extends Dbase
 			$html .= "\t\t\t\t\t\t\t\t\t".'<span>'.$artType.' '.$sizeWidth.' x '.$sizeHeight.'mm</span></p>'."\n";
 			$html .= "\t\t\t\t\t\t\t\t".'<p>'.$orderProdQty.' @ $'.sprintf("%01.2f", $sizePrice).'&nbsp;&nbsp;&nbsp;<strong>subtotal $'.sprintf("%01.2f", $subtotal).' NZD</strong></p>'."\n";
 			$html .= "\t\t\t\t\t\t\t".'</div>'."\n";
-		}	
+		}
 		$html .= "\t\t\t\t\t\t\t".'<div class="checkout_item">'."\n";
 		$html .= "\t\t\t\t\t\t\t\t".'<p>sub total<br />'."\n";
-		$html .= "\t\t\t\t\t\t\t\t".'<a href="index.php?page=shipping" target="_blank">shipping &amp; handling</a><br />'."\n";  		
-		$html .= "\t\t\t\t\t\t\t\t".'GST component<br />'."\n";  	
+		$html .= "\t\t\t\t\t\t\t\t".'<a href="index.php?page=shipping" target="_blank">shipping &amp; handling</a><br />'."\n";
+		$html .= "\t\t\t\t\t\t\t\t".'GST component<br />'."\n";
 		$html .= "\t\t\t\t\t\t\t\t".'<strong>grand total<br /></strong></p>'."\n";
 		$html .= "\t\t\t\t\t\t\t\t".'<p>$'.sprintf("%01.2f", $orderValue).' NZD<br/>'."\n";
 		$html .= "\t\t\t\t\t\t\t\t".' $'.sprintf("%01.2f", $orderShipValue).' NZD<br />'."\n";
@@ -793,7 +793,7 @@ class Model extends Dbase
 			$monthDue = date('M y', $monthDue);
 			$html .= "\t\t\t\t\t\t\t".'<div class="checkout_item">'."\n";
 			$html .= "\t\t\t\t\t\t\t\t".'<p><strong>payment received<br />'."\n";
-			
+
 			// no deposit has been paid and not dispatched so deposit due
 			if ($orderPaymentRec == 0) {
 				$now = ' immediately';
@@ -817,7 +817,7 @@ class Model extends Dbase
 			}
 			$html .= "\t\t\t\t\t\t\t".'</div>'."\n";
 		}
-		
+
 		else {
 			$deposit = ($orderTotalValue / 100) * $_SESSION['deposit'];
 			$html .= "\t\t\t\t\t\t\t".'<div class="checkout_item">'."\n";
@@ -826,7 +826,7 @@ class Model extends Dbase
 			$html .= "\t\t\t\t\t\t\t".'</div>'."\n";
 			$_SESSION['shipping'] = $shipping;
 		}
-		$html .= "\t\t\t\t\t\t".'</div>'."\n";	
+		$html .= "\t\t\t\t\t\t".'</div>'."\n";
 		return $html;
 	}
 
@@ -843,8 +843,8 @@ class Model extends Dbase
 		foreach ($items as $item) {
 			extract($item);
 			$subtotal = $sizePrice * $orderProdQty;
-			$orderValue = $orderValue + $subtotal;	
-			$quantity = $quantity + $orderProdQty;	
+			$orderValue = $orderValue + $subtotal;
+			$quantity = $quantity + $orderProdQty;
 		}
 		$order['quantity'] = $quantity;
 		$order['orderValue'] = $orderValue;
@@ -925,7 +925,7 @@ class Model extends Dbase
 		return $html;
 	}
 
-	
+
 	// this function collects the artist from the database
 	// it returns $html with the dropdown box
 	public function selectArtistForm($page='') {
@@ -964,7 +964,7 @@ class Model extends Dbase
 		$result['known_name'] = $this->validate->checkName($known_name);
 		$result['phone'] = $this->validate->checkPhone($phone);
 		$result['email'] = $this->validate->checkEmail($email);
-		$result['password'] = $this->validate->checkPassword($password);	
+		$result['password'] = $this->validate->checkPassword($password);
 		$result['ok'] = $this->validate->checkErrorMessages($result);
 		if ($result['password'] == '') {
 			$identity = $this->getCustomer($_SESSION['email'], $password);
@@ -992,7 +992,7 @@ class Model extends Dbase
 		$result['width1'] = $this->validate->checkNumeric($width1);
 		$result['height1'] = $this->validate->checkNumeric($height1);
 		if ($width1 != '') {
-			$result['apCode1'] = $this->validate->checkRequired($apcode1);	
+			$result['apCode1'] = $this->validate->checkRequired($apcode1);
 		}
 		$result['rrp1'] = $this->validate->checkNumeric($rrp1);
 		$result['wsp1'] = $this->validate->checkNumeric($wsp1);
@@ -1001,7 +1001,7 @@ class Model extends Dbase
 		$result['width2'] = $this->validate->checkNumeric($width2);
 		$result['height2'] = $this->validate->checkNumeric($height2);
 		if ($width2 != '') {
-			$result['apCode2'] = $this->validate->checkRequired($apcode2);	
+			$result['apCode2'] = $this->validate->checkRequired($apcode2);
 		}
 		$result['rrp2'] = $this->validate->checkNumeric($rrp2);
 		$result['wsp2'] = $this->validate->checkNumeric($wsp2);
@@ -1010,12 +1010,12 @@ class Model extends Dbase
 		$result['width3'] = $this->validate->checkNumeric($width3);
 		$result['height3'] = $this->validate->checkNumeric($height3);
 		if ($width3 != '') {
-			$result['apCode3'] = $this->validate->checkRequired($apcode3);	
+			$result['apCode3'] = $this->validate->checkRequired($apcode3);
 		}
 		$result['rrp3'] = $this->validate->checkNumeric($rrp3);
 		$result['wsp3'] = $this->validate->checkNumeric($wsp3);
 		$result['royalty3'] = $this->validate->checkNumeric($royalty3);
-		$result['password'] = $this->validate->checkPassword($password);	
+		$result['password'] = $this->validate->checkPassword($password);
 		$result['ok'] = $this->validate->checkErrorMessages($result);
 		if ($result['ok'] == true) {
 			$identity = $this->getCustomer($_SESSION['email'], $password);
@@ -1037,7 +1037,7 @@ class Model extends Dbase
 	public function selectArtworkForm() {
 		$html .= "\t\t\t\t\t".'<h4>Choose an artwork you wish to edit from one of the select boxes below</h4>'."\n";
 		$html .= "\t\t\t\t\t".'<form action="index.php?page=adminartwork" method="post" class="form">'."\n";
-		
+
 		$types = array('framed', 'canvas', 'print', 'card');
 
 		// Loop over each type and display as a select list.
@@ -1103,7 +1103,7 @@ class Model extends Dbase
 		}
 	    else if ($card_artwork != 0) {
 			$id = $card_artwork;
-		}		
+		}
 		return $id;
 	}
 
@@ -1173,7 +1173,7 @@ class Model extends Dbase
 				$sizeUpdate[0] = $this->updateSizePrice($sizeInfo);
 			}
 		}
-		
+
 		// size 2
 		$sizeInfo['width'] = $width2;
 		$sizeInfo['height'] = $height2;
@@ -1212,7 +1212,7 @@ class Model extends Dbase
 				$sizeUpdate[1] = $this->updateSizePrice($sizeInfo);
 			}
 		}
-		
+
 		// size 3
 		$sizeInfo['width'] = $width3;
 		$sizeInfo['height'] = $height3;
@@ -1278,7 +1278,7 @@ class Model extends Dbase
 			}
 			// when upload and resize is successful need to add the new name to the database
 			if ($iresult['resized']) {
-				$iresult['update'] = $this->editArt($artID, $iresult['new_image']);			
+				$iresult['update'] = $this->editArt($artID, $iresult['new_image']);
 			}
 			// resize of image failed
 			else {
@@ -1292,13 +1292,13 @@ class Model extends Dbase
 			$iresult = $this->uploadAndResizePhoto($artID);
 			// when upload and resize is successful need to add image title to the database
 			if ($iresult['resized']) {
-				$iresult['add'] = $this->editArt($artID, $iresult['new_image']);	
+				$iresult['add'] = $this->editArt($artID, $iresult['new_image']);
 			}
-			return $iresult;  
+			return $iresult;
 		}
 	}
 
-	
+
 	// uploads, saves and resizes photo in 5 sizes
 	// returns $result['new_image'] = basename($thumbPath) and $result['resized'] = true if successful
 	// returns false if fails
@@ -1318,7 +1318,7 @@ class Model extends Dbase
 			$result['resized'] = false;
 			return $result;
 		}
-		
+
 		// there is a file so resize, first set the file paths for all images
 		$fileName = basename($returnFile);
 		$desktopPath = $desktopFolder.'/'.$fileName;
@@ -1335,44 +1335,44 @@ class Model extends Dbase
 		if (!file_exists($tabletPath) || !file_exists($thumbPath) || !file_exists($mobilePath) || !file_exists($lightboxPath)) {
 			return false;
 		}
-		
+
 		$imgInfo = getimagesize($returnFile);
-		
+
 		// resize image to 200px wide for the thumbnail
 		$resizePhoto = new ResizeImage($thumbPath, 200, $thumbFolder);
 		 // if the resize to 200px is unsuccessful
-		if (!$resizePhoto->resize()) { 
+		if (!$resizePhoto->resize()) {
 //			 echo 'Unable to resize image to 200 pixels'; // (development only)
 		}
 
 		// resize image to 300px wide for tablet/mobile view
 		$resizePhoto1 = new ResizeImage($mobilePath, 300, $mobileFolder);
 		 // if the resize to 300px is unsuccessful
-		if (!$resizePhoto1->resize()) { 
+		if (!$resizePhoto1->resize()) {
 //			 echo 'Unable to resize image to 300 pixels'; // (development only)
 		}
 
 		// resize image to 400px wide for tablet/mobile view
 		$resizePhoto2 = new ResizeImage($tabletPath, 400, $tabletFolder);
 		 // if the resize to 400px is unsuccessful
-		if (!$resizePhoto2->resize()) { 
+		if (!$resizePhoto2->resize()) {
 //			 echo 'Unable to resize image to 400 pixels'; // (development only)
 		}
 
 		// resize image to 600px wide for the desktop view
 		$resizePhoto3 = new ResizeImage($desktopPath, 600, $desktopFolder);
 		 // if the resize to 600px is unsuccessful
-		if (!$resizePhoto3->resize()) { 
+		if (!$resizePhoto3->resize()) {
 //			 echo 'Unable to resize image to 600 pixels'; // (development only)
 		}
 
 		// resize image to 800px wide for the lightbox view
 		$resizePhoto4 = new ResizeImage($lightboxPath, 800, $lightboxFolder);
 		 // if the resize to 800px is unsuccessful
-		if (!$resizePhoto4->resize()) { 
+		if (!$resizePhoto4->resize()) {
 //			 echo 'Unable to resize image to 800 pixels'; // (development only)
 		}
-		
+
 		// if the new resized thumb, the tablet and the desktop image exist it worked so return['ok'] true!
 		if(file_exists($thumbPath) && file_exists($mobilePath) && file_exists($tabletPath) && file_exists($desktopPath) && file_exists($lightboxPath)) {
 			$result['new_image'] = basename($thumbPath);
@@ -1381,8 +1381,8 @@ class Model extends Dbase
 		}
 		else {
 			return false;
-		} 
-	}	
+		}
+	}
 
 
 	/* ---------------------------------------------------------------------- */
@@ -1397,12 +1397,12 @@ class Model extends Dbase
 		}
 		// when upload and resize is successful need to add the new name to the database
 		if ($iresult['resized']) {
-			$iresult['bannerID'] = $this->editBanner($iresult['banner_img']);	
+			$iresult['bannerID'] = $this->editBanner($iresult['banner_img']);
 		}
 		return $iresult;
 	}
 
-	
+
 	// uploads, saves and resizes banner in 3 sizes
 	// returns $result['new_image'] = basename($thumbPath) and $result['resized'] = true if successful
 	// returns false if fails
@@ -1420,7 +1420,7 @@ class Model extends Dbase
 			$result['resized'] = false;
 			return $result;
 		}
-		
+
 		// there is a file so resize, first set the file paths for all images
 		$fileName = basename($returnFile);
 		$desktopPath = $desktopFolder.'/'.$fileName;
@@ -1433,30 +1433,30 @@ class Model extends Dbase
 		if (!file_exists($tabletPath) || !file_exists($mobilePath)) {
 			return false;
 		}
-		
+
 		$imgInfo = getimagesize($returnFile);
-		
+
 		// resize image to 960px by 290px for the desktop
 		$resizePhoto = new ResizeImage($desktopPath, '', $desktopFolder, '960', '290');
 		 // if the resize to 200px is unsuccessful
-		if (!$resizePhoto->resize()) { 
+		if (!$resizePhoto->resize()) {
 //			 echo 'Unable to resize image to 960 pixels'; // (development only)
 		}
 
 		// resize image to 735px by 222px for tablet
 		$resizePhoto1 = new ResizeImage($tabletPath, '', $tabletFolder, '735', '222');
 		 // if the resize to 300px is unsuccessful
-		if (!$resizePhoto1->resize()) { 
+		if (!$resizePhoto1->resize()) {
 //			 echo 'Unable to resize image to 735 pixels'; // (development only)
 		}
 
-		// resize image to 320px by 160px for mobile 
+		// resize image to 320px by 160px for mobile
 		$resizePhoto2 = new ResizeImage($mobilePath, '', $mobileFolder, '320', '160');
 		 // if the resize to 400px is unsuccessful
-		if (!$resizePhoto2->resize()) { 
+		if (!$resizePhoto2->resize()) {
 //			 echo 'Unable to resize image to 320 pixels'; // (development only)
 		}
-		
+
 		// if the new resized thumb, the tablet and the desktop image exist it worked so return['ok'] true!
 		if(file_exists($mobilePath) && file_exists($tabletPath) && file_exists($desktopPath)) {
 			$result['banner_img'] = basename($mobilePath);
@@ -1465,14 +1465,14 @@ class Model extends Dbase
 		}
 		else {
 			return false;
-		} 	
-	}	
+		}
+	}
 
 
 	/* ---------------------------------------------------------------------- */
 	/* ----------------------------- royalties ------------------------------ */
 	/* ---------------------------------------------------------------------- */
-	
+
 
 	// gets royalties by checking dispatched art and organising it by artist
 	// then forwards array $info to function displayAllRoyalties to write $html to return
@@ -1482,11 +1482,11 @@ class Model extends Dbase
 			$royaltiesByArtistID = array();
 			$info['ids'] = array();
 			foreach ($dispatched as $item) {
-				extract($item);		
+				extract($item);
 				if (!in_array($artistID, $info['ids'])) {
 					$info['ids'][] = $artistID;
 				}
-				$royalty = $royaltyAmount * $orderProdQty;	
+				$royalty = $royaltyAmount * $orderProdQty;
 	    		$royaltiesByArtistID[$artistID] = ($royaltiesByArtistID[$artistID] + $royalty);
 			}
 			$artistPayment = array();
@@ -1495,7 +1495,7 @@ class Model extends Dbase
 				$payments[$artistID] = $this->royaltiesPaid($artistID);
 				$artist = $this->getArtists('', '', $artistID);
 				$artistName[$artistID] = $artist[0];
-				
+
 				if (is_array($payments[$artistID])) {
 					foreach ($payments[$artistID] as $payment) {
 						extract($payment);
@@ -1575,7 +1575,7 @@ class Model extends Dbase
 		extract($_POST);
 		$result['payment'] = $this->validate->checkAmount($payment);
 		$result['artistID'] = $this->validate->checkSelect($artistID);
-		$result['password'] = $this->validate->checkPassword($password);	
+		$result['password'] = $this->validate->checkPassword($password);
 		$result['ok'] = $this->validate->checkErrorMessages($result);
 		if ($result['password'] == '') {
 			$identity = $this->getCustomer($_SESSION['email'], $password);
@@ -1637,7 +1637,7 @@ class Model extends Dbase
 			foreach ($paid as $payment) {
 				extract($payment);
 				$totalPayment = $totalPayment + $amountPaid;
-			} 
+			}
 		}
 		else {
 			$totalPayment = 0;
@@ -1647,7 +1647,7 @@ class Model extends Dbase
 		$html .= "\t\t\t\t\t\t\t\t".'<td class="border">total:</td>'."\n";
 		if ($filter = 'month') {
 				$html .= "\t\t\t\t\t\t\t\t".'<td class="border"></td>'."\n";
-		}	
+		}
 		$html .= "\t\t\t\t\t\t\t\t".'<td class="border"></td>'."\n";
 		$html .= "\t\t\t\t\t\t\t\t".'<td class="border">'.$sumTotal.'</td>'."\n";
 		$html .= "\t\t\t\t\t\t\t\t".'<td class="border"></td>'."\n";

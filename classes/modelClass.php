@@ -32,30 +32,60 @@ class Model extends Dbase
 	// then displays it in the provided id for the div
 	// it is used on many pages including home, about, product etc
 	public function textTo2Cols($string, $heading='', $divID='') {
-		$sentences = explode(".", $string);
-		$numSentences = count($sentences);
-		$sentencesPerCol = floor($numSentences / 2);
-		$numSentences = $numSentences - 1;
+	  $string = str_replace( "\r\n", "<br />", trim($string), $count);
 		$col1 = '';
 		$col2 = '';
-		$i = 0;
-		while ($i < $sentencesPerCol) {
-			$col1 .= $sentences[$i] . '. ';
-			$i++;
-		}
-		$i = $sentencesPerCol;
-		while ($i < $numSentences) {
-			$col2 .= $sentences[$i] . '. ';
-			$i++;
+		$deliminator = '<br />';
+
+		// Allow admin to create own 2 col split.
+		$paragraphs = explode("[SPLIT]", $string);
+		if (count($paragraphs) > 1) {
+			foreach ($paragraphs as $key => $paragraph) {
+				if ($key < 1) {
+					$col1 = $paragraph;
+				}
+				else {
+					$col2 = $paragraph;
+				}
+			}
 		}
 
-		// display the content across the 2 columns
+		// If no manual split, split by line carriages.
+		else {
+			$paragraphs = explode("<br />", $string);
+			$paragraphs = array_filter(array_map('trim', $paragraphs));
+			if (count($paragraphs) > 1) {
+				$sentences = $paragraphs;
+				$numSentences = count($sentences) + 2;
+			}
+
+			// If no line carriages, split by sentence #.
+			else {
+				$sentences = explode(". ", $string);
+				$deliminator = ". ";
+				$numSentences = count($sentences);
+			}
+			$sentencesPerCol = floor($numSentences / 2);
+
+			$i = 0;
+			while ($i <= $sentencesPerCol) {
+				$col1 .= strip_tags($sentences[$i]) . $deliminator;
+				$i++;
+			}
+			$i = $sentencesPerCol + 1;
+			while ($i <= $numSentences) {
+				$col2 .= strip_tags($sentences[$i]) . $deliminator;
+				$i++;
+			}
+		}
+
+		// Display the content across the 2 columns.
 		$html = "\t\t\t".'<div id="'.$divID.'">'."\n";
 		if($heading) {
 			$html .= "\t\t\t".'<h2>'.$heading.'</h2>'."\n";
 		}
-		$html .= "\t\t\t\t".'<p>'.stripslashes(nl2br(trim($col1))).'</p>'."\n";
-		$html .= "\t\t\t\t".'<p>'.stripslashes(nl2br(trim($col2))).'</p>'."\n";
+		$html .= "\t\t\t\t".'<p>'.stripslashes(trim($col1, $deliminator)).'</p>'."\n";
+		$html .= "\t\t\t\t".'<p>'.stripslashes(trim($col2, $deliminator)).'</p>'."\n";
 		$html .= "\t\t\t".'</div> <!-- '.$divID.' -->'."\n";
 		return $html;
 	}

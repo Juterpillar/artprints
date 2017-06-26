@@ -54,8 +54,8 @@ class Model extends Dbase
 		if($heading) {
 			$html .= "\t\t\t".'<h2>'.$heading.'</h2>'."\n";
 		}
-		$html .= "\t\t\t\t".'<p>'.stripslashes($col1).'</p>'."\n";
-		$html .= "\t\t\t\t".'<p>'.stripslashes($col2).'</p>'."\n";
+		$html .= "\t\t\t\t".'<p>'.stripslashes(nl2br(trim($col1))).'</p>'."\n";
+		$html .= "\t\t\t\t".'<p>'.stripslashes(nl2br(trim($col2))).'</p>'."\n";
 		$html .= "\t\t\t".'</div> <!-- '.$divID.' -->'."\n";
 		return $html;
 	}
